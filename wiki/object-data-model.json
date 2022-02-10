@@ -1,0 +1,34 @@
+//Customer
+{
+    "username": String, //Unique
+    "password": String, //Salted, Hashed Password
+    "fname": String,
+    "lname": String,
+    "email": String,
+    "address":  String
+}
+
+//Employee
+{
+    "username": String, //Unique
+    "password": String, //Salted, Hashed Password
+    "primary_task": ["DOUGH", "FROSTING", "DELIVERY", "CASHIER", "CLEANING"], //enum. primary task of the employee
+    "secondary_task": ["DOUGH", "FROSTING", "DELIVERY", "CASHIER", "CLEANING"] //enum. secondary task of the employee
+}
+
+//Donuts
+{
+    "name": String, //Unique. Donut Name
+    "description": String, //Description of Donut
+    "price": Float, //Price of individual donut
+    "quantity_left": Integer, //number of donuts left in inventory
+    "weight": Float //weight of individual donut
+}
+
+//Drones
+{
+    "drone_id": Integer, //Unique. Drone ID
+    "weight_limit": String, //How much weight a drone can hold
+    "battery_status": Float, //How much battery is left in drone
+    "status": ["ON_WAY_TO_DELIVERY", "ON_WAY_BACK_FROM_DELIVERY", "IDLE", "CHARGING", "MAINTENACE"] //enum. current status of a drone
+}
