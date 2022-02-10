@@ -1,0 +1,94 @@
+//Customer
+{
+    "username": String, //Unique
+    "password": String, //Salted, Hashed Password
+    "fname": String,
+    "lname": String,
+    "email": String,
+    "address":  Integer
+}
+
+//ex
+{
+    "username": "takholee",
+    "password": "735ed12abec12bdcb42b",
+    "fname": "Tak-Ho",
+    "lname": "Lee",
+    "email": "takhol@andrew.cmu.edu",
+    "address_id":  1
+}
+
+//Address
+{
+    "address_id": Integer, //Unique
+    "street_address_1": String,
+    "street_address_2": String,
+    "city": String,
+    "state": String,
+    "zipcode": String,
+    "username":  String //Foreign key to object. 
+}
+//ex
+{
+    "address_id": 1, //Unique
+    "street_address_1": "1914 Murray Avenue",
+    "street_address_2": "Apt 27",
+    "city": "Pittsburgh",
+    "state": "PA",
+    "zipcode": "15217",
+    "username":  "takholee" //Foreign key to object. 
+}
+
+
+//Employee
+{
+    "username": String, //Unique
+    "password": String, //Salted, Hashed Password
+    "fname": String,
+    "lname": String,
+    "email": String,
+    "primary_task": ["DOUGH", "FROSTING", "DELIVERY", "CASHIER", "CLEANING"], //enum. primary task of the employee
+    "secondary_task": ["DOUGH", "FROSTING", "DELIVERY", "CASHIER", "CLEANING"] //enum. secondary task of the employee
+}
+//ex
+{
+    "username": "ilovedonuts",
+    "password": "431ed12abec12dsfb42b", 
+    "fname": "Do",
+    "lname": "Nut",
+    "email": "donut@andrew.cmu.edu",
+    "primary_task": "DOUGH", //enum. primary task of the employee
+    "secondary_task": "FROSTING" //enum. secondary task of the employee
+}
+
+//Donuts
+{
+    "name": String, //Unique. Donut Name
+    "description": String, //Description of Donut
+    "price": Float, //Price of individual donut
+    "quantity_left": Integer, //number of donuts left in inventory
+    "weight": Float //weight of individual donut. in ounces
+}
+//ex
+{
+    "name": "Glazed Donut",
+    "description": "The original glazed donut everyone loves.", 
+    "price": "2.50", 
+    "quantity_left": 10, 
+    "weight": 1.3 
+}
+
+//Drones
+{
+    "drone_id": Integer, //Unique. Drone ID
+    "weight_limit": Float, //How much weight a drone can hold in ounces
+    "battery_status": Integer, //How much battery is left in drone in percentage
+    "status": ["ON_WAY_TO_DELIVERY", "ON_WAY_BACK_FROM_DELIVERY", "IDLE", "CHARGING", "MAINTENACE"] //enum. current status of a drone
+}
+//ex
+{
+    "drone_id": 1,
+    "weight_limit": 13,
+    "battery_status": 43,
+    "status": "ON_WAY_TO_DELIVERY"
+}
