@@ -2,9 +2,8 @@
   "name": "dronuts2022-group-6",
   "version": "1.0.0",
   "description": "Dronuts development - 17356 - Team 6",
-  "main": "dist/app.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "cd dronuts-react && npm start",
     "lint": "eslint . --ext .ts",
     "test": "jest"
   },
