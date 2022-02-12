@@ -2,8 +2,10 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-
+var validateEmail = function (email) {
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return re.test(email)
+};
 const customerSchema = new Schema({
   username: {
     type: String,
@@ -22,17 +24,14 @@ const customerSchema = new Schema({
     required: [true, "Last Name required"]
   },
   email: {
-    type: {
-      type: String,
-      required: [true, "Last Name required"]
-    },
+    type: String,
     validate: {
-      validator: function (v: string) {
-        return emailRegex.test(v);
+      validator: function (v) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
       },
       message: props => `${props.value} is not a valid email!`
     },
-    required: [true, 'User phone number required']
+    required: [true, 'User email required']
   },
   phone: {
     type: String,
