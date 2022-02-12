@@ -1,0 +1,11 @@
+.cart {
+    width: 400px;
+}
+
+.checkout-button {
+    float: right;
+}
+
+.price-title {
+    margin-left: 5px;
+}

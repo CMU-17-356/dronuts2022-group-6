@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 function ExploreComponent() {
- return <h1>Explore</h1>;
+  return <h1>Explore</h1>;
 }
 
 export default ExploreComponent;

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Page } from '@geist-ui/react'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {Page} from '@geist-ui/react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import HomeComponent from './components/pages/home';
 import NavComponent from './components/common/nav';
@@ -11,10 +11,8 @@ import ExploreComponent from './components/pages/explore';
 function App() {
   return (
     <Router>
+      <NavComponent />
       <Page>
-        <Page.Header>
-          <NavComponent />
-        </Page.Header>
         <Page.Content>
           <Route path="/">
             <HomeComponent />
@@ -26,9 +24,6 @@ function App() {
             <ExploreComponent />
           </Route>
         </Page.Content>
-        <Page.Footer>
-          <h2>Footer</h2>
-        </Page.Footer>
       </Page>
     </Router>
   );
