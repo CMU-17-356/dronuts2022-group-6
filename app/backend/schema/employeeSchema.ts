@@ -3,12 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 enum EmployeePosition {
-    "CREW",
-    "DELIVERER",
-    "MANAGER"
+    CREW = "crew",
+    DELIVERER = "deliverer",
+    MANAGER = "manager"
 }
-
-const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 const employeeSchema = new Schema({
     username: {
@@ -28,17 +26,14 @@ const employeeSchema = new Schema({
         required: [true, "First Name required"]
     },
     email: {
-        type: {
-            type: String,
-            required: [true, "Last Name required"]
-        },
+        type: String,
         validate: {
-            validator: function (v: string) {
-                return emailRegex.test(v);
+            validator: function (v) {
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
             },
             message: props => `${props.value} is not a valid email!`
         },
-        required: [true, 'User phone number required']
+        required: [true, 'User email required']
     },
     phone: {
         type: String,
@@ -53,10 +48,10 @@ const employeeSchema = new Schema({
     position: {
         type: String,
         default: EmployeePosition.CREW,
-        enum: EmployeePosition,
+        enum: Object.values(EmployeePosition),
         required: [true, "Position required"]
     }
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);
-export { employeeSchema, EmployeePosition}
+export { employeeSchema, EmployeePosition }
