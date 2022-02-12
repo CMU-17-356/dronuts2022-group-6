@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Page } from '@geist-ui/react'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {Page} from '@geist-ui/react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 import HomeComponent from './components/pages/home';
 import NavComponent from './components/common/nav';
