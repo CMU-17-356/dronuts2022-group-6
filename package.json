@@ -4,7 +4,7 @@
   "description": "Dronuts development - 17356 - Team 6",
   "scripts": {
     "start": "cd dronuts-react && npm start",
-    "lint": "eslint . --ext .ts",
+    "lint": "cd dronuts-react && eslint . --ext .tsx",
     "test": "jest"
   },
   "jest": {
