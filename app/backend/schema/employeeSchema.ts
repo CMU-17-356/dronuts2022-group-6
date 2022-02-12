@@ -59,4 +59,4 @@ const employeeSchema = new Schema({
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);
-export { employeeSchema }
+export { employeeSchema, EmployeePosition}

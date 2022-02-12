@@ -27,4 +27,4 @@ const droneSchema = new Schema({
 });
 
 module.exports = mongoose.model('Drone', droneSchema);
-export {droneSchema}
+export {droneSchema, DroneStatus}
