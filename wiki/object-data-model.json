@@ -47,8 +47,7 @@
     "fname": String,
     "lname": String,
     "email": String,
-    "primary_task": ["DOUGH", "FROSTING", "DELIVERY", "CASHIER", "CLEANING"], //enum. primary task of the employee
-    "secondary_task": ["DOUGH", "FROSTING", "DELIVERY", "CASHIER", "CLEANING"] //enum. secondary task of the employee
+    "position": ["CREW", "MANAGER", "DELIVERER"], //enum. position/task the employee
 }
 //ex
 {
