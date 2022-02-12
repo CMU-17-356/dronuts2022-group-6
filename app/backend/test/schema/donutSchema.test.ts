@@ -33,7 +33,7 @@ describe('Testing Donut Schema ', function () {
         expect(wrongDonut.quantity_left).toBe(0)
     });
     test('should have validation error for negative price, weight, quantity', function () {
-        const correctDonut = new Donut({
+        const wrongDonut = new Donut({
             name: "Glazed Donut",
             description: "A classic, sweet glazed donut",
             price: -2.50,
@@ -41,11 +41,11 @@ describe('Testing Donut Schema ', function () {
             weight: -1
         });
 
-        const badEmailError = correctDonut.validateSync()
+        const badNumberError = wrongDonut.validateSync()
 
-        expect(badEmailError.errors.price).toBeDefined()
-        expect(badEmailError.errors.quantity_left).toBeDefined()
-        expect(badEmailError.errors.weight).toBeDefined()
+        expect(badNumberError.errors.price).toBeDefined()
+        expect(badNumberError.errors.quantity_left).toBeDefined()
+        expect(badNumberError.errors.weight).toBeDefined()
     });
     
 });
