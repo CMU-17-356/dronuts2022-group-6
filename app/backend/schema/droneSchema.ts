@@ -11,9 +11,15 @@ enum DroneStatus {
 }
 
 const droneSchema = new Schema({
-    "weight_limit": Number, //How much weight a drone can hold in ounces
-    "battery_status": Number, //How much battery is left in drone in percentage
-    "primary_task": {
+    "weight_limit": {
+        type: Number,
+        required: [true, "weight limit required"]
+    }, //How much weight a drone can hold in ounces
+    "battery_status": {
+        type: Number,
+        required: [true, "batter status required"]
+    }, //How much battery is left in drone in percentage
+    "drone_status": {
         type: String,
         default: DroneStatus.IDLE,
         enum: DroneStatus
@@ -21,3 +27,4 @@ const droneSchema = new Schema({
 });
 
 module.exports = mongoose.model('Drone', droneSchema);
+export {droneSchema}
