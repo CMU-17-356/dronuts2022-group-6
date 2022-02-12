@@ -24,6 +24,7 @@
   "homepage": "https://github.com/CMU-17-356/dronuts2022-group-6#readme",
   "dependencies": {
     "@babel/preset-typescript": "^7.16.7",
+    "@geist-ui/icons": "^1.0.1",
     "@types/jest": "^27.4.0",
     "express": "^4.17.2"
   },

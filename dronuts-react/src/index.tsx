@@ -15,24 +15,12 @@ import ExploreComponent from './components/pages/explore';
 
 ReactDOM.render(
   <Router>
-    <GeistProvider>
-      <CssBaseline />
-        <Page>
-          <Page.Header>
-            <NavComponent />
-          </Page.Header>
-          <Page.Content>
-            <Routes>
-              <Route path="/" element={<HomeComponent />} />
-              <Route path="about" element={<AboutComponent />} />
-              <Route path="explore" element={<ExploreComponent />} />
-            </Routes>
-          </Page.Content>
-          <Page.Footer>
-            <h2>Footer</h2>
-          </Page.Footer>
-        </Page>
-    </GeistProvider>
+    <CssBaseline />
+    <Routes>
+      <Route path="/" element={<HomeComponent />} />
+      <Route path="about" element={<AboutComponent />} />
+      <Route path="explore" element={<ExploreComponent />} />
+    </Routes>
   </Router>,
   document.getElementById('root')
 );

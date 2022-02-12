@@ -11,10 +11,8 @@ import ExploreComponent from './components/pages/explore';
 function App() {
   return (
     <Router>
+      <NavComponent />
       <Page>
-        <Page.Header>
-          <NavComponent />
-        </Page.Header>
         <Page.Content>
           <Route path="/">
             <HomeComponent />
@@ -26,9 +24,6 @@ function App() {
             <ExploreComponent />
           </Route>
         </Page.Content>
-        <Page.Footer>
-          <h2>Footer</h2>
-        </Page.Footer>
       </Page>
     </Router>
   );
