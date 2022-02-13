@@ -30,7 +30,12 @@
     ],
     "rules": {
       "require-jsdoc": 0,
-      "camelcase": [2, {"properties": "always"}]
+      "camelcase": [
+        2,
+        {
+          "properties": "always"
+        }
+      ]
     }
   },
   "browserslist": {
