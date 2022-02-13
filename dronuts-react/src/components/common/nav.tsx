@@ -26,7 +26,7 @@ function NavComponent() {
           <Button onClick={ () => navigate('/about') }>About</Button>
         </div>
         <div>
-          <Button onClick={ () => navigate('/order') }>Order</Button>
+          <Button onClick={ () => navigate('/checkout') }>Checkout</Button>
         </div>
       </div>
       <div className='right-content'>

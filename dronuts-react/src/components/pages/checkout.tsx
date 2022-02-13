@@ -4,12 +4,12 @@ import {Divider, Grid, Page, Spacer, Text,Card, Button} from '@geist-ui/react';
 import { Edit,CreditCard } from '@geist-ui/icons'
 import CartCardComponent from '../common/cart-card';
 
-function OrderComponent() {
+function CheckoutComponent() {
   //return <h1>Order</h1>;
   return (
     <div><NavComponent/>
     <Spacer h={10}/>
-    <div className = "orderpage">
+    <div className = "checkoutpage">
 
         <Page>
             <Page.Content>
@@ -57,4 +57,4 @@ function OrderComponent() {
   );
 }
 
-export default OrderComponent;
+export default CheckoutComponent;
