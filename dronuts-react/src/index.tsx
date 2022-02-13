@@ -9,6 +9,7 @@ import './App.css';
 import HomeComponent from './components/pages/home';
 import AboutComponent from './components/pages/about';
 import ExploreComponent from './components/pages/explore';
+import OrderComponent from './components/pages/order'
 
 
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route path="/" element={<HomeComponent />} />
         <Route path="about" element={<AboutComponent />} />
         <Route path="explore" element={<ExploreComponent />} />
+        <Route path="order" element={<OrderComponent />} />
       </Routes>
     </Router>,
     document.getElementById('root'),

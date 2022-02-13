@@ -7,6 +7,7 @@ import HomeComponent from './components/pages/home';
 import NavComponent from './components/common/nav';
 import AboutComponent from './components/pages/about';
 import ExploreComponent from './components/pages/explore';
+import OrderComponent from './components/pages/order';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/explore">
             <ExploreComponent />
+          </Route>
+          <Route path="/order">
+            <OrderComponent/>
           </Route>
         </Page.Content>
       </Page>
