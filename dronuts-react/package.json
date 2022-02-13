@@ -25,9 +25,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "eslint:recommended",
-      "google"
-    ],
+      "eslint:recommended"],
     "rules": {
       "require-jsdoc": 0,
       "camelcase": [
