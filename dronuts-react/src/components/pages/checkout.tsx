@@ -3,17 +3,20 @@ import NavComponent from '../common/nav';
 import {Divider, Grid, Page, Spacer, Text,Card, Button} from '@geist-ui/react';
 import { Edit,CreditCard } from '@geist-ui/icons'
 import CartCardComponent from '../common/cart-card';
+import {useNavigate} from 'react-router-dom';
 
 function CheckoutComponent() {
-  //return <h1>Order</h1>;
-  return (
+    const navigate = useNavigate();
+    //return <h1>Order</h1>;
+    return (
+    
     <div><NavComponent/>
     <Spacer h={10}/>
     <div className = "checkoutpage">
 
         <Page>
             <Page.Content>
-            <Card width="500px">
+            <Card shadow width="500px">
             <Card.Content>
             <h3>Your order</h3>
             </Card.Content>
@@ -21,7 +24,7 @@ function CheckoutComponent() {
                 <Spacer h={1}/>
             <Card.Content>
 
-                <div className='order'>
+                <div className='checkout'>
                 
                 <Grid.Container gap={ 1 } justify="center" direction={ 'column' }>
                     <Grid><CartCardComponent /><Edit/></Grid>
@@ -45,9 +48,10 @@ function CheckoutComponent() {
             </Card>
             <Spacer h={ 2 }/>
             <div>
-            <Button iconRight={<CreditCard/>} auto>Proceed with CommerceFriend</Button>
+            <Button iconRight={<CreditCard/>} auto onClick={ () => navigate('/confirmation') }>Proceed with CommerceFriend</Button>
             </div>
-        
+            <div>
+        </div>
             </Page.Content>
         </Page>
     </div>

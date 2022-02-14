@@ -8,6 +8,7 @@ import NavComponent from './components/common/nav';
 import AboutComponent from './components/pages/about';
 import ExploreComponent from './components/pages/explore';
 import CheckoutComponent from './components/pages/checkout';
+import ConfirmationComponent from './components/pages/confirmation';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/checkout">
             <CheckoutComponent/>
+          </Route>
+          <Route path="/confirmation">
+            <ConfirmationComponent/>
           </Route>
         </Page.Content>
       </Page>

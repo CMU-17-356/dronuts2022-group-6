@@ -9,7 +9,8 @@ import './App.css';
 import HomeComponent from './components/pages/home';
 import AboutComponent from './components/pages/about';
 import ExploreComponent from './components/pages/explore';
-import CheckoutComponent from './components/pages/checkout'
+import CheckoutComponent from './components/pages/checkout';
+import ConfirmationComponent from './components/pages/confirmation';
 
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
         <Route path="about" element={<AboutComponent />} />
         <Route path="explore" element={<ExploreComponent />} />
         <Route path="checkout" element={<CheckoutComponent />} />
+        <Route path="confirmation" element={<ConfirmationComponent />}/>
       </Routes>
     </Router>,
     document.getElementById('root'),
