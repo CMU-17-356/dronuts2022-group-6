@@ -19,7 +19,6 @@ enum Status {
 
 
 const orderSchema = new Schema({
-    order_id: Number, //Unique
     customer_id: [
         {type: Schema.Types.ObjectId, ref: 'Customer'} //Foreign key to object
     ], 

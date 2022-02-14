@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 
 
 const orderItemsSchema = new Schema({
-    orderItem_id: Number, //Unique
     order_id: [
         {type: Schema.Types.ObjectId, ref: 'Order'} //Foreign key to object
     ], 
