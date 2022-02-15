@@ -25,9 +25,6 @@ const orderSchema = new Schema({
     drone_id: [
         {type: Schema.Types.ObjectId, ref: 'Drone'} //Foreign key to object
     ],
-    orderItems_id: [
-        {type: Schema.Types.ObjectId, ref: 'OrderItems'} //Foreign key to object
-    ], 
     address: String,
     paymentMethod: {
         type: String,
