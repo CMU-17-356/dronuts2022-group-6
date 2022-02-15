@@ -13,38 +13,38 @@ function ExploreComponent() {
             <h2>Today's Donut</h2>
             <Spacer h={3}/>
             <Grid.Container gap={10}>
-              <Grid xs={6}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
             </Grid.Container>
             <Spacer h={5}/>
 
             <h2>Top Picks</h2>
             <Spacer h={3}/>
-            <Grid.Container gap={10}>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
+            <Grid.Container gap={5}>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
             </Grid.Container>
 
             <Spacer h={5}/>
 
             <h2>All Donuts</h2>
             <Spacer h={3}/>
-            <Grid.Container gap={10}>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
-              <Grid xs={6}><DonutCardComponent /></Grid>
+            <Grid.Container gap={5}>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent /></Grid>
             </Grid.Container>
           </Page.Content>
         </Page>
