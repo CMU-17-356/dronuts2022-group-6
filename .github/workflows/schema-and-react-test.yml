@@ -19,7 +19,7 @@ jobs:
       - name: go to parent directory
         run: cd ..
       - name: go to react
-        uses: cd dronuts-react
+        run: cd dronuts-react
       - name: Installing packages
         run: npm ci
       - name: running tests
