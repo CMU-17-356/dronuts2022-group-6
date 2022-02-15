@@ -32,6 +32,9 @@ function NavComponent() {
             return <Navigate to='/about' />;
           }}>About</Button>
         </div>
+        <div>
+          <Button onClick={ () => navigate('/checkout') }>Checkout</Button>
+        </div>
       </div>
       <div className='right-content'>
         <div>
