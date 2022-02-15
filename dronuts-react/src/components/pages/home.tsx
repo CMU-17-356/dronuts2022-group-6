@@ -1,7 +1,8 @@
 import {Divider, Grid, Page, Spacer, Text} from '@geist-ui/react';
 import React from 'react';
+import {ArrowDown} from '@geist-ui/icons';
 import DonutCardComponent from '../common/donut-card';
-// import NavComponent from '../common/nav';
+import NavComponent from '../common/nav';
 import landingLogo from '../../assets/DronutsLogo.png';
 import './home.css';
 
@@ -14,9 +15,11 @@ function HomeComponent() {
             src={landingLogo} alt="logo" />
           <Spacer h={2}/>
           <h1 className='landing-text'>Order today!</h1>
+          <Spacer h={10}/>
+          <ArrowDown />
         </div>
       </div>
-      {/* <NavComponent /> */}
+      <NavComponent />
       <div className='page'>
         <Page>
           <Page.Content>
@@ -33,7 +36,7 @@ function HomeComponent() {
             <h2>Today's Donut</h2>
             <Spacer h={3}/>
             <Grid.Container gap={2}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid xs={6}><DonutCardComponent /></Grid>
             </Grid.Container>
             <Spacer h={5}/>
 
@@ -41,9 +44,9 @@ function HomeComponent() {
             <h2>Top Picks</h2>
             <Spacer h={3}/>
             <Grid.Container gap={2}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid xs={6}><DonutCardComponent /></Grid>
+              <Grid xs={6}><DonutCardComponent /></Grid>
+              <Grid xs={6}><DonutCardComponent /></Grid>
             </Grid.Container>
           </Page.Content>
         </Page>
