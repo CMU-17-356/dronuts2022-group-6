@@ -1,0 +1,29 @@
+name: Testing on npm test
+on:
+  push: 
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: go to backend
+        uses: cd app
+      - name: Installing packages
+        run: npm ci
+      - name: running tests
+        run: npm test
+      - name: go to parent directory
+        uses: cd ..
+      - name: go to react
+        uses: cd dronuts-react
+      - name: Installing packages
+        run: npm ci
+      - name: running tests
+        run: npm test
+      - name: quit react tests
+        run: q
+      - run: echo "🍏 This job's status is ${{ job.status }}."
