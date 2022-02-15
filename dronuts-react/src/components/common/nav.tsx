@@ -1,6 +1,5 @@
 import React from 'react';
 import {Avatar, Button, Drawer, Spacer} from '@geist-ui/react';
-import {Navigate} from 'react-router-dom';
 import {ShoppingCart} from '@geist-ui/icons';
 import './nav.css';
 import CartComponent from './cart';
@@ -14,26 +13,16 @@ function NavComponent() {
     <div className="navbar">
       <div className='left-content'>
         <div>
-          <img className='logo-img'
-            src={ landingLogo } alt='logo'
-            onClick={ () => {
-              return <Navigate to='/' />;
-            }} />
+          <a href='/'>
+            <img className='logo-img'
+              src={ landingLogo } alt='logo'/>
+          </a>
         </div>
         <div>
-          <Button onClick={ () => {
-            return <Navigate to='/explore' />;
-          }}>
-            Explore
-          </Button>
+          <a href='/explore'><Button>Explore</Button></a>
         </div>
         <div>
-          <Button onClick={ () => {
-            return <Navigate to='/about' />;
-          }}>About</Button>
-        </div>
-        <div>
-          <Button onClick={ () => navigate('/checkout') }>Checkout</Button>
+          <a href='/about'><Button>About</Button></a>
         </div>
       </div>
       <div className='right-content'>

@@ -1,7 +1,7 @@
 import {Divider, Grid, Page, Spacer, Text} from '@geist-ui/react';
 import React from 'react';
 import DonutCardComponent from '../common/donut-card';
-import NavComponent from '../common/nav';
+// import NavComponent from '../common/nav';
 import landingLogo from '../../assets/DronutsLogo.png';
 import './home.css';
 
@@ -16,7 +16,7 @@ function HomeComponent() {
           <h1 className='landing-text'>Order today!</h1>
         </div>
       </div>
-      <NavComponent />
+      {/* <NavComponent /> */}
       <div className='page'>
         <Page>
           <Page.Content>

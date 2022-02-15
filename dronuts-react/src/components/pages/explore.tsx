@@ -1,12 +1,12 @@
 import {Grid, Page, Spacer} from '@geist-ui/react';
 import React from 'react';
 import DonutCardComponent from '../common/donut-card';
-import NavComponent from '../common/nav';
+// import NavComponent from '../common/nav';
 
 function ExploreComponent() {
   return (
     <div>
-      <NavComponent />
+      {/* <NavComponent /> */}
       <div className='page'>
         <Page>
           <Page.Content>

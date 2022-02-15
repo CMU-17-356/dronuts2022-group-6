@@ -11,11 +11,13 @@ import AboutComponent from './components/pages/about';
 import ExploreComponent from './components/pages/explore';
 import CheckoutComponent from './components/pages/checkout';
 import ConfirmationComponent from './components/pages/confirmation';
+import NavComponent from './components/common/nav';
 
 
 ReactDOM.render(
     <Router>
       <CssBaseline />
+      <NavComponent/>
       <Routes>
         <Route path="/" element={<HomeComponent />} />
         <Route path="about" element={<AboutComponent />} />
