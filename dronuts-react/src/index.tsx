@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 
 import {CssBaseline} from '@geist-ui/react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import './App.css';
+import './index.css';
 import HomeComponent from './components/pages/home';
 import AboutComponent from './components/pages/about';
 import ExploreComponent from './components/pages/explore';
