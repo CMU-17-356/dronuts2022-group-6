@@ -1,6 +1,6 @@
 import React from 'react';
 import {Avatar, Button, Drawer, Spacer} from '@geist-ui/react';
-import {useNavigate} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {ShoppingCart} from '@geist-ui/icons';
 import './nav.css';
 import CartComponent from './cart';
@@ -8,7 +8,6 @@ import landingLogo from '../../assets/DronutsLogo.png';
 import tempDonut from '../../assets/donut-temp.png';
 
 function NavComponent() {
-  const navigate = useNavigate();
   const [state, setState] = React.useState(false);
 
   return (
@@ -17,13 +16,21 @@ function NavComponent() {
         <div>
           <img className='logo-img'
             src={ landingLogo } alt='logo'
-            onClick={ () => navigate('/') } />
+            onClick={ () => {
+              return <Redirect to='/' />;
+            }} />
         </div>
         <div>
-          <Button onClick={ () => navigate('/explore') }>Explore</Button>
+          <Button onClick={ () => {
+            return <Redirect to='/explore' />;
+          }}>
+            Explore
+          </Button>
         </div>
         <div>
-          <Button onClick={ () => navigate('/about') }>About</Button>
+          <Button onClick={ () => {
+            return <Redirect to='/about' />;
+          }}>About</Button>
         </div>
       </div>
       <div className='right-content'>
