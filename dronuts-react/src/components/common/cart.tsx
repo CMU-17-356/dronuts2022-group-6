@@ -24,8 +24,11 @@ function CartComponent() {
         </Grid.Container>
       </div>
       <Spacer h={ 2 }/>
-      <Button className='checkout-button' auto
-        ghost iconRight={ <ArrowRightCircle /> }>Checkout</Button>
+      <a href='/checkout'>
+        <Button className='checkout-button' auto
+          ghost iconRight={ <ArrowRightCircle /> }>Checkout
+        </Button>
+      </a>
     </div>
   );
 }
