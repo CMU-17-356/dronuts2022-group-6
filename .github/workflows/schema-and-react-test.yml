@@ -11,13 +11,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - name: go to backend
-        uses: cd app
+        run: cd app
       - name: Installing packages
         run: npm ci
       - name: running tests
         run: npm test
       - name: go to parent directory
-        uses: cd ..
+        run: cd ..
       - name: go to react
         uses: cd dronuts-react
       - name: Installing packages
