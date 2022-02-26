@@ -12,6 +12,7 @@ import ExploreComponent from './components/pages/explore';
 import CheckoutComponent from './components/pages/checkout';
 import ConfirmationComponent from './components/pages/confirmation';
 import NavComponent from './components/common/nav';
+import EmployeeDashboardComponent from './components/pages/employee-dashboard';
 
 
 ReactDOM.render(
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path="explore" element={<ExploreComponent />} />
         <Route path="checkout" element={<CheckoutComponent />} />
         <Route path="confirmation" element={<ConfirmationComponent />}/>
+        <Route path="dashboard" element={<EmployeeDashboardComponent />}/>
       </Routes>
     </Router>,
     document.getElementById('root'),
