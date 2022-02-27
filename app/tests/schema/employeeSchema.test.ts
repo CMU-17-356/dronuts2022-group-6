@@ -1,15 +1,10 @@
 import mongoose from "mongoose";
-import { employeeSchema } from "../../schema/employeeSchema";
+import { EmployeeModel, EmployeePosition } from "../../schema/employeeSchema";
 
-const Employee = mongoose.model('Employee', employeeSchema)
-enum EmployeePosition {
-    CREW = "crew",
-    DELIVERER = "deliverer",
-    MANAGER = "manager"
-}
+
 describe('Testing Employee Schema ', function () {
     test('should allow to make Employee acc w valid fields', function () {
-        const correctEmployee = new Employee({
+        const correctEmployee = new EmployeeModel({
             username: "takholee",
             password: "ilovedonuts",
             fname: "Takho",
@@ -31,7 +26,7 @@ describe('Testing Employee Schema ', function () {
         expect(correctEmployee.position).toBe("manager")
     });
     test('should have validation error for empty fields except employee position', function () {
-        const wrongEmployee = new Employee({
+        const wrongEmployee = new EmployeeModel({
         });
 
         const missingFieldError = wrongEmployee.validateSync()
@@ -45,7 +40,7 @@ describe('Testing Employee Schema ', function () {
         expect(wrongEmployee.position).toBe("crew")
     });
     test('should have validation error for invalid email', function () {
-        const wrongEmployee = new Employee({
+        const wrongEmployee = new EmployeeModel({
             username: "takholee",
             password: "ilovedonuts",
             fname: "Takho",
@@ -60,7 +55,7 @@ describe('Testing Employee Schema ', function () {
     });
 
     test('should have validation error for invalid number', function () {
-        const wrongCustomer = new Employee({
+        const wrongCustomer = new EmployeeModel({
             username: "takholee",
             password: "ilovedonuts",
             fname: "Takho",

@@ -45,5 +45,5 @@ const orderSchema = new Schema({
     grand_total: Number
 });
 
-module.exports = mongoose.model('Order', orderSchema);
-export {orderSchema}
+const OrderModel = mongoose.model('Order', orderSchema);
+export {OrderModel, PaymentMethod, Status}

@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import { customerSchema } from "../../schema/customerSchema";
+import { CustomerModel } from "../../schema/customerSchema";
 
-const Customer = mongoose.model('Customer', customerSchema)
 describe('Testing Customer Schema ', function () {
     test('should allow to make customer acc w valid fields', function () {
-        const correctCustomer = new Customer({
+        const correctCustomer = new CustomerModel({
             username: "takholee",
             password: "ilovedonuts",
             fname: "Takho",
@@ -22,7 +21,7 @@ describe('Testing Customer Schema ', function () {
         expect(correctCustomer.phone).toBe("412-996-5373")
     });
     test('should have validation error for empty fields', function () {
-        const wrongCustomer = new Customer({
+        const wrongCustomer = new CustomerModel({
         });
 
         const missingFieldError = wrongCustomer.validateSync()
@@ -35,7 +34,7 @@ describe('Testing Customer Schema ', function () {
         expect(missingFieldError.errors.phone).toBeDefined()
     });
     test('should have validation error for invalid email', function () {
-        const wrongCustomer = new Customer({
+        const wrongCustomer = new CustomerModel({
             username: "takholee",
             password: "ilovedonuts",
             fname: "Takho",
@@ -50,7 +49,7 @@ describe('Testing Customer Schema ', function () {
     });
 
     test('should have validation error for invalid number', function () {
-        const wrongCustomer = new Customer({
+        const wrongCustomer = new CustomerModel({
             username: "takholee",
             password: "ilovedonuts",
             fname: "Takho",

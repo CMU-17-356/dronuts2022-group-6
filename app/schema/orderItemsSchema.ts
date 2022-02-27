@@ -14,7 +14,7 @@ const orderItemsSchema = new Schema({
         type: Number,
         default: 0,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return v >= 0
             },
             message: `quantity cannot less than 0!`
@@ -25,7 +25,7 @@ const orderItemsSchema = new Schema({
         type: Number,
         default: 0.0,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return v >= 0
             },
             message: `subtotal cannot less than 0!`
@@ -34,5 +34,5 @@ const orderItemsSchema = new Schema({
     },
 });
 
-module.exports = mongoose.model('OrderItems', orderItemsSchema);
-export {orderItemsSchema}
+const OrderItemModel = mongoose.model('OrderItems', orderItemsSchema);
+export {OrderItemModel}

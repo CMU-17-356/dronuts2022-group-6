@@ -28,20 +28,20 @@ const employeeSchema = new Schema({
     email: {
         type: String,
         validate: {
-            validator: function (v) {
+            validator: function (v: string) {
                 return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
             },
-            message: props => `${props.value} is not a valid email!`
+            message: 'not a valid email!'
         },
         required: [true, 'User email required']
     },
     phone: {
         type: String,
         validate: {
-            validator: function (v) {
+            validator: function (v: string) {
                 return /\d{3}-\d{3}-\d{4}/.test(v);
             },
-            message: props => `${props.value} is not a valid phone number!`
+            message: 'not a valid phone number!'
         },
         required: [true, 'User phone number required']
     },
@@ -53,5 +53,5 @@ const employeeSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Employee', employeeSchema);
-export { employeeSchema, EmployeePosition }
+const EmployeeModel = mongoose.model('Employee', employeeSchema);
+export { EmployeeModel, EmployeePosition }

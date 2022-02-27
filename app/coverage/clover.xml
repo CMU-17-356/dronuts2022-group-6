@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1645944007478" clover="3.2.0">
+  <project timestamp="1645944007478" name="All files">
+    <metrics statements="61" coveredstatements="61" conditionals="10" coveredconditionals="10" methods="15" coveredmethods="15" elements="86" coveredelements="86" complexity="0" loc="61" ncloc="61" packages="1" files="6" classes="6"/>
+    <file name="customerSchema.ts" path="/Users/texeirareborn/Desktop/17356/dronuts2022-group-6/app/schema/customerSchema.ts">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="1" count="3" type="stmt"/>
+      <line num="3" count="3" type="stmt"/>
+      <line num="6" count="3" type="stmt"/>
+      <line num="27" count="3" type="stmt"/>
+      <line num="36" count="3" type="stmt"/>
+      <line num="46" count="3" type="stmt"/>
+      <line num="48" count="3" type="stmt"/>
+    </file>
+    <file name="donutSchema.ts" path="/Users/texeirareborn/Desktop/17356/dronuts2022-group-6/app/schema/donutSchema.ts">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <line num="1" count="2" type="stmt"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="5" count="2" type="stmt"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="29" count="3" type="stmt"/>
+      <line num="39" count="2" type="stmt"/>
+      <line num="47" count="2" type="stmt"/>
+      <line num="48" count="2" type="stmt"/>
+    </file>
+    <file name="droneSchema.ts" path="/Users/texeirareborn/Desktop/17356/dronuts2022-group-6/app/schema/droneSchema.ts">
+      <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
+      <line num="1" count="3" type="stmt"/>
+      <line num="3" count="3" type="stmt"/>
+      <line num="5" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="6" count="3" type="stmt"/>
+      <line num="7" count="3" type="stmt"/>
+      <line num="8" count="3" type="stmt"/>
+      <line num="9" count="3" type="stmt"/>
+      <line num="10" count="3" type="stmt"/>
+      <line num="13" count="3" type="stmt"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="27" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="41" count="3" type="stmt"/>
+      <line num="43" count="3" type="stmt"/>
+    </file>
+    <file name="employeeSchema.ts" path="/Users/texeirareborn/Desktop/17356/dronuts2022-group-6/app/schema/employeeSchema.ts">
+      <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="5" count="1" type="cond" truecount="2" falsecount="0"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="1" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="32" count="3" type="stmt"/>
+      <line num="42" count="3" type="stmt"/>
+      <line num="56" count="1" type="stmt"/>
+      <line num="57" count="1" type="stmt"/>
+    </file>
+    <file name="orderItemsSchema.ts" path="/Users/texeirareborn/Desktop/17356/dronuts2022-group-6/app/schema/orderItemsSchema.ts">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="38" count="1" type="stmt"/>
+    </file>
+    <file name="orderSchema.ts" path="/Users/texeirareborn/Desktop/17356/dronuts2022-group-6/app/schema/orderSchema.ts">
+      <metrics statements="15" coveredstatements="15" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+      <line num="1" count="2" type="stmt"/>
+      <line num="3" count="2" type="stmt"/>
+      <line num="6" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="8" count="2" type="stmt"/>
+      <line num="9" count="2" type="stmt"/>
+      <line num="10" count="2" type="stmt"/>
+      <line num="13" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="14" count="2" type="stmt"/>
+      <line num="15" count="2" type="stmt"/>
+      <line num="16" count="2" type="stmt"/>
+      <line num="17" count="2" type="stmt"/>
+      <line num="21" count="2" type="stmt"/>
+      <line num="48" count="2" type="stmt"/>
+      <line num="49" count="2" type="stmt"/>
+    </file>
+  </project>
+</coverage>
