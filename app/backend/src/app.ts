@@ -20,7 +20,7 @@ app.post('/changeDonutQuantity/:id', (req, res) => {
 })
 
 app.post('/showOrder', (req, res) => {
-  const customerID: Number = req.body.customerID
+  const customerID: string = req.body.customerID
   const donuts: object = req.body.donuts
 
   const createdOrder: object = createOrder(customerID, donuts)
@@ -29,8 +29,8 @@ app.post('/showOrder', (req, res) => {
 })
 
 app.post('/showOrderEmployee', (req, res) => {
-  const employeeID: Number = req.body.employeeID
-  const orderID: Number = req.body.orderID
+  const employeeID: string = req.body.employeeID
+  const orderID: string = req.body.orderID
 
   //const createdOrder: object = createOrder(customer, donuts)
   
@@ -38,8 +38,8 @@ app.post('/showOrderEmployee', (req, res) => {
 })
 
 app.post('/makePayment', (req, res) => {
-  const customerID: Number = req.body.customerID
-  const orderID: Number = req.body.orderID
+  const customerID: string = req.body.customerID
+  const orderID: string = req.body.orderID
   const paymentMethod: Number = req.body.paymentMethod
   
   const paidOrder: object = makePayment(orderID, paymentMethod)
