@@ -1,50 +1,33 @@
 import {Grid, Page, Spacer} from '@geist-ui/react';
-import React from 'react';
+import React, {useState} from 'react';
 import DonutCardComponent from '../common/donut-card';
 // import NavComponent from '../common/nav';
 
 function ExploreComponent() {
+  const [donuts] = useState(() => {
+    return [{'id': 1, 'name': 'Glazed W/ Sprinkles', 'price': 4.00,
+      'description': 'Nice donut with guey inside'}];
+  });
+
+  // fetch('https://localhost:300/donuts')
+  //     .then((response) => response.json())
+  //     .then((data) => setDonuts(JSON.parse(data)));
+
   return (
     <div>
-      {/* <NavComponent /> */}
       <div className='page'>
         <Page>
           <Page.Content>
-            <h2>Today's Donut</h2>
-            <Spacer h={3}/>
-            <Grid.Container gap={10}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-            </Grid.Container>
-            <Spacer h={5}/>
-
-            <h2>Top Picks</h2>
-            <Spacer h={3}/>
-            <Grid.Container gap={5}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-            </Grid.Container>
-
-            <Spacer h={5}/>
-
             <h2>All Donuts</h2>
             <Spacer h={3}/>
             <Grid.Container gap={5}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
+              {donuts.map((item: Object, i: number) => {
+                console.log(item);
+                return (
+                  <Grid sm={10} key={i}>
+                    <DonutCardComponent data={item}/>
+                  </Grid>);
+              })}
             </Grid.Container>
           </Page.Content>
         </Page>

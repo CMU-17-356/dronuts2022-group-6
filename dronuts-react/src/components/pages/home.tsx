@@ -33,7 +33,7 @@ function HomeComponent() {
             <h2>Today's Donut</h2>
             <Spacer h={3}/>
             <Grid.Container gap={2}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
             </Grid.Container>
             <Spacer h={5}/>
 
@@ -41,9 +41,9 @@ function HomeComponent() {
             <h2>Top Picks</h2>
             <Spacer h={3}/>
             <Grid.Container gap={2}>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
-              <Grid sm={10}><DonutCardComponent /></Grid>
+              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
+              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
+              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
             </Grid.Container>
           </Page.Content>
         </Page>
