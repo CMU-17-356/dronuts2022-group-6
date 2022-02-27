@@ -1,12 +1,10 @@
 import { Schema, model, connect } from 'mongoose';
 import mongoose from "mongoose";
-import { customerSchema } from '../schema/customerSchema';
+import { CustomerModel } from '../schema/customerSchema';
 
 async function run(): Promise<void> {
     // 4. Connect to MongoDB
-    await connect('mongodb://localhost:27017/test');
-
-    const CustomerModel = mongoose.model('Customer', customerSchema)
+    await connect('mongodb://localhost:27017/');
   
     const doc = new CustomerModel({
         username: "takholee",
@@ -20,3 +18,5 @@ async function run(): Promise<void> {
   
     console.log(doc.email); // 'bill@initech.com'
   }
+
+export { run }
