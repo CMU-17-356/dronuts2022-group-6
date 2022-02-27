@@ -29,14 +29,12 @@
     "ts-standard": "^10.0.0",
     "typescript": "^4.4.3",
     "express": "^4.17.2",
-    "tsify": "^5.0.4",
     "mongoose": "^6.2.1"
   },
   "devDependencies": {
     "readline-sync": "^1.4.10",
     "ts-node": "^10.2.1",
     "uglify-js": "^3.14.2",
-    "tsify": "^5.0.4",
     "typescript": "^4.4.3"
   }
 }
