@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { CustomerModel } from "../../schema/customerSchema";
 
 describe('Testing Customer Schema ', function () {

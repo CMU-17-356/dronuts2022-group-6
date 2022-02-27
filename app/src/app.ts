@@ -2,14 +2,10 @@
 import { CustomerModel } from "../schema/customerSchema";
 import { run } from "./mongoosedb";
 
-run()
-
-CustomerModel.findOne({ 'fname': "Takho"}, (err: object, customer: object) => {
-    if (err){
-        console.log("what")
-    }
-    console.log(customer)
-})
+run().then( () => {
+    const myself = CustomerModel.findOne({ 'fname': "Takho"})
+    return myself
+}).then(smth => console.log(smth._id))
 
 
 // const app = express();
