@@ -1,0 +1,23 @@
+.donut-img {
+    max-width: 30%;
+}
+
+.donut-description {
+    width: 60%;
+}
+
+.donut-name {
+    width: 60%;
+    margin: 0px;
+}
+
+.donut-info {
+    display: flex;
+}
+
+.amount-input {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
