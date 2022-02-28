@@ -1,8 +1,10 @@
 import express from 'express';
 import { ObjectId, Types } from 'mongoose';
 import { CustomerModel } from "../schema/customerSchema";
+import { PaymentMethod } from '../schema/orderSchema';
+import { changeDonutQuantity } from './donut';
 import { run } from "./mongoosedb";
-import { newOrder } from './order';
+import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order';
 
 run().then(() => {
     const myself = CustomerModel.findOne({ 'fname': "Takho" })
@@ -25,12 +27,12 @@ function runExpressServer() {
     });
 
     app.post('/changeDonutQuantity/:id', (req, res) => {
-      const numChange: Number = req.body.numChange
-      const donutID: string = req.params.id
+      const numChange: number = req.body.numChange
+      const donutID: any = req.params.id
 
-      const updatedDonutInfo: object = updateDonutCount(donutID, numChange)
-
-      res.send(updatedDonutInfo)
+      changeDonutQuantity(donutID, numChange, true).then((updatedDonutInfo) => {
+          res.status(200).send(updatedDonutInfo)
+      })
     })
 
     app.post('/showOrder', (req, res) => {
@@ -54,22 +56,34 @@ function runExpressServer() {
     })
 
     app.post('/makePayment', (req, res) => {
-      const customerID: string = req.body.customerID
-      const orderID: string = req.body.orderID
-      const paymentMethod: Number = req.body.paymentMethod
+      const orderID: Types.ObjectId = req.body.orderID
+      const paymentMethod: PaymentMethod = req.body.paymentMethod
 
-      const paidOrder: object = makePayment(orderID, paymentMethod)
+      makePayment(orderID, paymentMethod).then((paidOrder) => {
+        res.status(200).send(paidOrder)
+      })
 
-      res.send(paidOrder)
+      
     })
 
     app.post('/cancelOrder', (req, res) => {
-      const orderID: Number = req.body.orderID
+      const orderID: Types.ObjectId = req.body.orderID
 
-      const isCancelled: boolean = cancelOrder(orderID)
+      cancelOrder(orderID).then((canclledOrder) => {
+        res.status(200).send(canclledOrder)
+      })
 
-      res.send(paidOrder)
     })
+
+    app.post('/matchOrderToDrone', (req, res) => {
+        const orderID: Types.ObjectId = req.body.orderID
+        const droneID: any = req.body.droneID
+  
+        matchOrderToDrone(orderID, droneID).then((updatedOrder) => {
+          res.status(200).send(updatedOrder)
+        })
+  
+      })
 }
 
 

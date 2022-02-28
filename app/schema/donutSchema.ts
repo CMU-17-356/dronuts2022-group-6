@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+import { Donut } from '../src/donut';
 
 const { Schema } = mongoose;
 
-const donutSchema = new Schema({
+const donutSchema = new Schema<Donut>({
     name: {
         type: String,
         required: [true, "Donut Name required"]
@@ -44,5 +45,5 @@ const donutSchema = new Schema({
     },
 });
 
-const DonutModel = mongoose.model('Donut', donutSchema);
+const DonutModel = mongoose.model<Donut>('Donut', donutSchema);
 export {DonutModel}

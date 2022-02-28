@@ -2,8 +2,9 @@ import { Schema, Types, ObjectId } from "mongoose";
 import { DonutModel } from "../schema/donutSchema";
 import { OrderItemModel } from "../schema/orderItemsSchema";
 import { OrderModel, PaymentMethod, Status } from "../schema/orderSchema";
+import { changeDonutQuantity } from "./donut";
 
-interface Order{
+interface Order {
     customerID: ObjectId,
     droneID?: ObjectId,
     address?: string,
@@ -17,7 +18,7 @@ interface Order{
     grandTotal?: Number
 }
 
-async function newOrder (thisCustomerID: ObjectId, thisOrderItems: [Types.ObjectId, number][]): Promise<any>{
+async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [Types.ObjectId, number][]): Promise<any> {
     const order = new OrderModel({
         customerID: thisCustomerID,
     })
@@ -29,29 +30,25 @@ async function newOrder (thisCustomerID: ObjectId, thisOrderItems: [Types.Object
     })
 
     return new Promise((resolve, reject) => {
-        try{
+        try {
             order.orderItems = orderItems as unknown as [Schema.Types.ObjectId]
             order.save()
-            return resolve(order)
+            resolve(order.toJSON())
         }
-        catch{
+        catch {
             console.log("order items not being added")
-            return reject("order items adding bad")
+            reject("order items adding bad")
         }
     })
 
 }
 
-async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: [Types.ObjectId, number][]): Promise<[Types.ObjectId]>{
+async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: [Types.ObjectId, number][]): Promise<[Types.ObjectId]> {
     let orderItemIDs: [Types.ObjectId]
 
     return new Promise((resolve, reject) => {
-        for (const [donutID, quantity] of thisOrderItems){
-
-            DonutModel.findOne({_id: donutID}, async (err, donut) => {
-                if (err){
-                    return reject(err)
-                }
+        for (const [donutID, quantity] of thisOrderItems) {
+            changeDonutQuantity(donutID, quantity, false).then((donut) => {
                 const orderItem = new OrderItemModel({
                     orderID: thisOrderID,
                     donutID: donutID,
@@ -59,22 +56,91 @@ async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: [Type
                     subtotal: donut.price * quantity,
                     subtotalWeight: donut.weight * quantity
                 })
-                try{
-                    await orderItem.save();
+                try {
+                    orderItem.save();
                     orderItemIDs.push(orderItem._id)
                 }
-                catch{
+                catch {
                     console.log("order items not being made")
-                    return reject("order items bad")
+                    reject("order items bad")
                 }
-                
-                
+            }).catch((err) => {
+                console.log(err)
             })
-
         }
-
-        return resolve(orderItemIDs)
+        resolve(orderItemIDs)
     })
 }
 
-export { Order, newOrder }
+async function makePayment(thisOrderID: Types.ObjectId, payment: PaymentMethod): Promise<any> {
+    const thisOrder = await OrderModel.findById(thisOrderID)
+
+    return new Promise((resolve, reject) => {
+        try {
+            thisOrder.paymentMethod = payment
+            thisOrder.timeOfPurchase = new Date()
+            thisOrder.save()
+            resolve(thisOrder.toJSON())
+        }
+        catch {
+            console.log("order payment not being made")
+            reject("order payment bad")
+        }
+    })
+}
+
+async function cancelOrder(thisOrderID: any): Promise<boolean> {
+    const thisOrder = await OrderModel.findById(thisOrderID)
+
+    return new Promise((resolve, reject) => {
+        try {
+            if (thisOrder.timeOfDeparture) {
+                for (const orderItemID of thisOrder.orderItems) {
+                    OrderItemModel.findById(orderItemID, (err, orderItem) =>{
+                        changeDonutQuantity(orderItem.donutID, orderItem.quantity, true).then((donut) => {
+                            
+                            try {
+                                OrderItemModel.findByIdAndDelete(orderItemID)
+                            }
+                            catch {
+                                console.log("order items not being made")
+                                reject("order items bad")
+                            }
+                        }).catch((err) => {
+                            console.log(err)
+                        })
+                    })
+                }
+                OrderItemModel.findByIdAndDelete(thisOrderID)
+                
+
+                resolve(true)
+            }
+            else {
+                resolve(false)
+            }
+        }
+        catch {
+            console.log("cancellation erroneous")
+            reject("cancellation bad")
+        }
+    })
+}
+
+async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: ObjectId): Promise<any> {
+    const thisOrder = await OrderModel.findById(thisOrderID)
+
+    return new Promise((resolve, reject) => {
+        try {
+            thisOrder.droneID = thisDroneID
+            thisOrder.save()
+            resolve(thisOrder.toJSON())
+        }
+        catch {
+            console.log("cancellation erroneous")
+            reject("cancellation bad")
+        }
+    })
+}
+
+export { Order, newOrder, makePayment, cancelOrder, matchOrderToDrone }
