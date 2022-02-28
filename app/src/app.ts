@@ -1,4 +1,16 @@
 // import express from 'express';
+import { CustomerModel } from "../schema/customerSchema";
+import { run } from "./mongoosedb";
+
+run()
+
+CustomerModel.findOne({ 'fname': "Takho"}, (err: object, customer: object) => {
+    if (err){
+        console.log("what")
+    }
+    console.log(customer)
+})
+
 
 // const app = express();
 // const port = 3000;
