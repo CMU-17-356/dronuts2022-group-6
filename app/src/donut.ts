@@ -9,8 +9,31 @@ interface Donut {
     weight: number
 }
 
+async function getAvailableDonuts(): Promise<any> {
+    return DonutModel.find({}).then((result) => {
+
+        console.log(typeof result)
+        let jsonArray = []
+
+        result.forEach((donut) => {
+            if (donut.quantity_left > 0) {
+                jsonArray.push(donut)
+            }
+        })
+
+        return jsonArray
+    })
+}
+
+async function getAllDonuts(): Promise<any> {
+    return DonutModel.find({}).then((result) => {
+
+        return result
+    })
+}
+
 async function changeDonutQuantity(thisDonutID: any, numChange: number, add: boolean): Promise<any> {
-    
+
     let thisDonut = await DonutModel.findById(thisDonutID)
 
     if (add) {
@@ -32,4 +55,4 @@ async function changeDonutQuantity(thisDonutID: any, numChange: number, add: boo
     })
 }
 
-export { Donut, changeDonutQuantity }
+export { Donut, changeDonutQuantity, getAvailableDonuts, getAllDonuts }

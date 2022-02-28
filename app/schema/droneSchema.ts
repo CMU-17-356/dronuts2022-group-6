@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Drone } from '../src/drone'
 
 const { Schema } = mongoose
 
@@ -7,10 +8,10 @@ enum DroneStatus {
   ON_WAY_BACK_FROM_DELIVERY = 'on way back from delivery',
   IDLE = 'idle',
   CHARGING = 'charging',
-  MAINTENACE= 'under maintenance'
+  MAINTENACE = 'under maintenance'
 }
 
-const droneSchema = new Schema({
+const droneSchema = new Schema<Drone>({
   weightLimit: {
     type: Number,
     validate: {
@@ -38,6 +39,6 @@ const droneSchema = new Schema({
   }
 })
 
-const DroneModel = mongoose.model('Drone', droneSchema)
+const DroneModel = mongoose.model<Drone>('Drone', droneSchema)
 
-export { droneSchema, DroneStatus, DroneModel }
+export { droneSchema, DroneModel, DroneStatus }
