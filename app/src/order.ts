@@ -1,4 +1,4 @@
-import { Schema, Types, ObjectId } from 'mongoose'
+import mongoose, { Schema, Types, ObjectId } from 'mongoose'
 import { DonutModel } from '../schema/donutSchema'
 import { OrderItemModel } from '../schema/orderItemsSchema'
 import { OrderModel, PaymentMethod, Status } from '../schema/orderSchema'
@@ -19,13 +19,17 @@ interface Order {
     grandTotal?: Number
 }
 
-async function newOrder(thisCustomerID: ObjectId, thisOrderItems: Array<[Types.ObjectId, number]>): Promise<any> {
+async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promise<any> {
     const order = new OrderModel({
         customerID: thisCustomerID
     })
     let grandTotal
     let orderItems
     await order.save()
+    
+    console.log(thisOrderItems)
+
+    //thisOrderItems = thisOrderItems.map((id, q) => [mongoose.Types.ObjectId(id), q])
 
     await makeOrderItems((order._id), thisOrderItems).then((orderItemsAndTotal) => {
         orderItems = orderItemsAndTotal[0] as unknown as [Schema.Types.ObjectId]
@@ -79,7 +83,7 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
 
     thisOrder.droneID = thisDroneID
     thisOrder.timeOfDeparture = new Date()
-    
+
     return thisOrder.save().then(order => {
         try {
             return (thisOrder.toJSON())

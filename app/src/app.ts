@@ -19,11 +19,9 @@ function runExpressServer () {
   const app = express()
   const port = 3000
   
-  const jsonParser = bodyParser.json()
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
   app.get('/', (req, res) => {
@@ -46,9 +44,9 @@ function runExpressServer () {
 
   app.post('/showOrder', (req, res) => {
     const customerID: ObjectId = req.body.customerID
-    const donuts: Array<[Types.ObjectId, number]> = req.body.donuts
-
-    newOrder(customerID, donuts).then((createdOrder) => {
+    const donuts = req.body.donuts
+    const formattedDonuts = donuts.map((str) => str.split(","))
+    newOrder(customerID, formattedDonuts).then((createdOrder) => {
       res.status(200).send(createdOrder.toJSON())
     })
   })

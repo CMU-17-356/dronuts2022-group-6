@@ -18,7 +18,7 @@ async function run (): Promise<void> {
     phone: '412-996-5373'
   })
   await customer1.save()
-  console.log(customer1.username)
+  console.log(customer1._id)
 
   // Employee
   const employee1 = new EmployeeModel({
