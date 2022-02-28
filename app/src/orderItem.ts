@@ -1,36 +1,65 @@
-import { ObjectId } from "mongoose"
-import { DonutModel } from "../schema/donutSchema"
+import { ObjectId, Types } from 'mongoose'
+import { DonutModel } from '../schema/donutSchema'
+import { OrderItemModel } from '../schema/orderItemsSchema'
 
-interface OrderItem{
-    orderID: ObjectId,
-    donutID: ObjectId,
-    quantity: number,
-    subtotal: number
-    subtotalWeight: number
+interface OrderItem {
+  orderID: ObjectId
+  donutID: ObjectId
+  quantity: number
+  subtotal: number
+  subtotalWeight: number
 }
 
-function newOrderItem(newDonutID: ObjectId, newOrderID: ObjectId, newQuantity: number): OrderItem{
-    let newSubtotal: number
-    let newSubWeight: number
-    
-    DonutModel.findOne({ _id: newDonutID}, (err: Error, donut) => {
-        if (err){
-            console.log(err)
-            return
-        }
+async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: Array<[Types.ObjectId, number]>): Promise<any> {
+  let orderItemIDs = []
+  let grandTotal = 0
 
-        newSubtotal = donut.price * newQuantity
-        newSubWeight = donut.weight * newQuantity
+  for (const [donutID, quantity] of thisOrderItems) {
+    await makeOrderItem(thisOrderID, donutID, quantity).then((orderItem) => {
+      grandTotal += orderItem.subtotal
+      orderItemIDs.push(orderItem._id)
+    }).catch((err) => {
+      console.log(err)
     })
+  }
 
-    
-    return{
-        orderID: newOrderID,
-        donutID: newDonutID,
-        quantity: newQuantity,
-        subtotal: newSubtotal,
-        subtotalWeight: newSubWeight
+  return new Promise((resolve, reject) => {
+    try{
+      resolve([orderItemIDs, grandTotal])
     }
+    catch(e){
+      reject(e)
+    }
+    
+  })
 }
 
-export { OrderItem, newOrderItem}
+async function findDonut(donutID: any){
+  return await DonutModel.findById(donutID)
+}
+
+async function makeOrderItem(thisOrderID: any, thisDonutID: any, thisQuantity: number): Promise<any> {
+
+  const thisDonut = await findDonut(thisDonutID)
+
+  return new Promise((resolve, reject) => {
+    try {
+      const orderItem = new OrderItemModel({
+        orderID: thisOrderID,
+        donutID: thisDonutID,
+        quantity: thisQuantity,
+        subtotal: thisDonut.price * thisQuantity,
+        subtotalWeight: thisDonut.weight * thisQuantity
+      })
+      orderItem.save()
+      resolve(orderItem)
+    } catch {
+      console.log('order items not being made')
+      reject('order items bad')
+    }
+
+  })
+}
+
+
+export { OrderItem, makeOrderItems, makeOrderItem }

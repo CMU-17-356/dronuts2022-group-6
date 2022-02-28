@@ -1,144 +1,91 @@
-import { Schema, Types, ObjectId } from "mongoose";
-import { DonutModel } from "../schema/donutSchema";
-import { OrderItemModel } from "../schema/orderItemsSchema";
-import { OrderModel, PaymentMethod, Status } from "../schema/orderSchema";
-import { changeDonutQuantity } from "./donut";
+import { Schema, Types, ObjectId } from 'mongoose'
+import { DonutModel } from '../schema/donutSchema'
+import { OrderItemModel } from '../schema/orderItemsSchema'
+import { OrderModel, PaymentMethod, Status } from '../schema/orderSchema'
+import { changeDonutQuantity } from './donut'
+import { makeOrderItems } from './orderItem'
 
 interface Order {
-    customerID: ObjectId,
-    droneID?: ObjectId,
-    address?: string,
+    customerID: ObjectId
+    droneID?: ObjectId
+    address?: string
     paymentMethod: PaymentMethod
     status: Status
     orderItems: [ObjectId]
-    timeOfPurchase?: Date,
-    timeOfDeparture?: Date,
-    timeOfArrival?: Date,
-    estimatedTime?: Date,
+    timeOfPurchase?: Date
+    timeOfDeparture?: Date
+    timeOfArrival?: Date
+    estimatedTime?: Date
     grandTotal?: Number
 }
 
-async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [Types.ObjectId, number][]): Promise<any> {
+async function newOrder(thisCustomerID: ObjectId, thisOrderItems: Array<[Types.ObjectId, number]>): Promise<any> {
     const order = new OrderModel({
-        customerID: thisCustomerID,
+        customerID: thisCustomerID
     })
-
+    let grandTotal
+    let orderItems
     await order.save()
 
-    const orderItems = await makeOrderItems((order._id), thisOrderItems).then((orderItems) => {
-        order.orderItems = orderItems as unknown as [Schema.Types.ObjectId]
+    await makeOrderItems((order._id), thisOrderItems).then((orderItemsAndTotal) => {
+        orderItems = orderItemsAndTotal[0] as unknown as [Schema.Types.ObjectId]
+        grandTotal = orderItemsAndTotal[1]
     })
 
     return new Promise((resolve, reject) => {
         try {
-            order.orderItems = orderItems as unknown as [Schema.Types.ObjectId]
+            order.grandTotal = grandTotal
+            order.orderItems = orderItems
             order.save()
-            resolve(order.toJSON())
+            resolve(order)
+        } catch {
+            console.log('order items not being added')
+            reject('order items adding bad')
         }
-        catch {
-            console.log("order items not being added")
-            reject("order items adding bad")
-        }
-    })
-
-}
-
-async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: [Types.ObjectId, number][]): Promise<[Types.ObjectId]> {
-    let orderItemIDs: [Types.ObjectId]
-
-    return new Promise((resolve, reject) => {
-        for (const [donutID, quantity] of thisOrderItems) {
-            changeDonutQuantity(donutID, quantity, false).then((donut) => {
-                const orderItem = new OrderItemModel({
-                    orderID: thisOrderID,
-                    donutID: donutID,
-                    quantity: quantity,
-                    subtotal: donut.price * quantity,
-                    subtotalWeight: donut.weight * quantity
-                })
-                try {
-                    orderItem.save();
-                    orderItemIDs.push(orderItem._id)
-                }
-                catch {
-                    console.log("order items not being made")
-                    reject("order items bad")
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
-        }
-        resolve(orderItemIDs)
     })
 }
 
-async function makePayment(thisOrderID: Types.ObjectId, payment: PaymentMethod): Promise<any> {
+async function makePayment(thisOrderID: any, payment: PaymentMethod): Promise<any> {
+
     const thisOrder = await OrderModel.findById(thisOrderID)
+    thisOrder.paymentMethod = payment
+    thisOrder.timeOfPurchase = new Date()
 
-    return new Promise((resolve, reject) => {
-        try {
-            thisOrder.paymentMethod = payment
-            thisOrder.timeOfPurchase = new Date()
-            thisOrder.save()
-            resolve(thisOrder.toJSON())
-        }
-        catch {
-            console.log("order payment not being made")
-            reject("order payment bad")
-        }
-    })
+
+    return thisOrder.save().then(order => {
+        return order.toJSON()
+
+    }).catch(err => console.log(err))
 }
 
 async function cancelOrder(thisOrderID: any): Promise<boolean> {
     const thisOrder = await OrderModel.findById(thisOrderID)
 
-    return new Promise((resolve, reject) => {
-        try {
-            if (thisOrder.timeOfDeparture) {
-                for (const orderItemID of thisOrder.orderItems) {
-                    OrderItemModel.findById(orderItemID, (err, orderItem) =>{
-                        changeDonutQuantity(orderItem.donutID, orderItem.quantity, true).then((donut) => {
-                            
-                            try {
-                                OrderItemModel.findByIdAndDelete(orderItemID)
-                            }
-                            catch {
-                                console.log("order items not being made")
-                                reject("order items bad")
-                            }
-                        }).catch((err) => {
-                            console.log(err)
-                        })
-                    })
-                }
-                OrderItemModel.findByIdAndDelete(thisOrderID)
-                
+    if (!thisOrder.timeOfDeparture) {
+        for (const orderItemID of thisOrder.orderItems) {
+            await OrderItemModel.findByIdAndDelete(orderItemID)
+        }
+        await OrderModel.findByIdAndDelete(thisOrderID)
+    }
+    const shouldBeNull = await OrderModel.findById(thisOrderID)
 
-                resolve(true)
-            }
-            else {
-                resolve(false)
-            }
-        }
-        catch {
-            console.log("cancellation erroneous")
-            reject("cancellation bad")
-        }
+    return new Promise((resolve, reject) => {
+        resolve(!shouldBeNull)
     })
 }
 
 async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: ObjectId): Promise<any> {
     const thisOrder = await OrderModel.findById(thisOrderID)
 
-    return new Promise((resolve, reject) => {
+    thisOrder.droneID = thisDroneID
+    thisOrder.timeOfDeparture = new Date()
+    
+    return thisOrder.save().then(order => {
         try {
-            thisOrder.droneID = thisDroneID
-            thisOrder.save()
-            resolve(thisOrder.toJSON())
-        }
-        catch {
-            console.log("cancellation erroneous")
-            reject("cancellation bad")
+            return (thisOrder.toJSON())
+        } catch(e){
+            console.log(e)
+            return (e)
         }
     })
 }

@@ -1,30 +1,29 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const { Schema } = mongoose;
-
+const { Schema } = mongoose
 
 const customerSchema = new Schema({
   username: {
     type: String,
-    required: [true, "Username required"]
-  }, //Unique
+    required: [true, 'Username required']
+  }, // Unique
   password: {
     type: String,
-    required: [true, "Password required"]
-  }, //Salted, Hashed Password
+    required: [true, 'Password required']
+  }, // Salted, Hashed Password
   fname: {
     type: String,
-    required: [true, "First Name required"]
+    required: [true, 'First Name required']
   },
   lname: {
     type: String,
-    required: [true, "Last Name required"]
+    required: [true, 'Last Name required']
   },
   email: {
     type: String,
     validate: {
       validator: function (v: string) {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v)
       }
     },
     required: [true, 'User email required']
@@ -33,7 +32,7 @@ const customerSchema = new Schema({
     type: String,
     validate: {
       validator: function (v: string) {
-        return /\d{3}-\d{3}-\d{4}/.test(v);
+        return /\d{3}-\d{3}-\d{4}/.test(v)
       }
     },
     required: [true, 'User phone number required']
@@ -41,8 +40,8 @@ const customerSchema = new Schema({
   addresses: [
     { type: Schema.Types.ObjectId, ref: 'Address' }
   ]
-});
+})
 
-const CustomerModel = mongoose.model('Customer', customerSchema);
+const CustomerModel = mongoose.model('Customer', customerSchema)
 
 export { customerSchema, CustomerModel }

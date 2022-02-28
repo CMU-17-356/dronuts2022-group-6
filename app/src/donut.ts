@@ -1,35 +1,34 @@
-import { ObjectId } from "mongoose"
-import { DonutModel } from "../schema/donutSchema"
+import { ObjectId } from 'mongoose'
+import { DonutModel } from '../schema/donutSchema'
 
-interface Donut{
-    name: string,
-    description: string,
-    price: number,
+interface Donut {
+    name: string
+    description: string
+    price: number
     quantity_left: number
     weight: number
 }
 
-async function changeDonutQuantity (thisDonutID: any, numChange: number, add: boolean): Promise<any>{
-    const thisDonut = await DonutModel.findById({thisDonutID})
+async function changeDonutQuantity(thisDonutID: any, numChange: number, add: boolean): Promise<any> {
+    
+    let thisDonut = await DonutModel.findById(thisDonutID)
 
     return new Promise((resolve, reject) => {
-        try{
-            if (add){
+        try {
+            if (add) {
                 thisDonut.quantity_left += numChange
-            }
-            else {
+            } else {
                 thisDonut.quantity_left -= numChange
             }
-            
+
             thisDonut.save()
+            //console.log(thisDonut)
             resolve(thisDonut)
-        }
-        catch{
-            console.log("donut change not working")
-            reject("donut change adding bad")
+        } catch (e) {
+            console.log('donut change not working')
+            reject(e)
         }
     })
-
 }
 
-export { Donut, changeDonutQuantity}
+export { Donut, changeDonutQuantity }
