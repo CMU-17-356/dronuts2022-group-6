@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import { ObjectId, Types } from 'mongoose'
 import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
@@ -17,6 +18,13 @@ run().then(() => {
 function runExpressServer () {
   const app = express()
   const port = 3000
+  
+  const jsonParser = bodyParser.json()
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+  const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
   app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -27,6 +35,7 @@ function runExpressServer () {
   })
 
   app.post('/changeDonutQuantity/:id', (req, res) => {
+    console.log(req.body.numChange)
     const numChange: number = req.body.numChange
     const donutID: any = req.params.id
 
