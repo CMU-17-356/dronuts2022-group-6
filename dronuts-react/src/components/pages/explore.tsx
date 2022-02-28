@@ -9,7 +9,7 @@ function ExploreComponent() {
       'description': 'Nice donut with guey inside'}];
   });
 
-  fetch('https://localhost:3004/donuts')
+  fetch('https://localhost:6000/donuts')
       .then((response) => response.json())
       .then((data: any) => {
         setDonuts(data.data);

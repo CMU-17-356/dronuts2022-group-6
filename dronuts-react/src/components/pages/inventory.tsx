@@ -4,7 +4,7 @@ import InventoryDonutCardComponent from '../common/inventory-donut-card';
 // import NavComponent from '../common/nav';
 
 function InventoryComponent() {
-  const [donuts] = useState(() => {
+  const [donuts, setDonuts] = useState(() => {
     return [{'id': 1, 'name': 'Glazed W/ Sprinkles', 'price': 4.00,
       'description': 'Nice donut with guey inside',
       'quantity_left': 4, 'weight': 4},
@@ -12,9 +12,11 @@ function InventoryComponent() {
       'price': 2.00, 'id': '#54094', 'quantity_left': 2, 'weight': '4.5'}];
   });
 
-  // fetch('https://localhost:300/donuts')
-  //     .then((response) => response.json())
-  //     .then((data) => setDonuts(JSON.parse(data)));
+  fetch('https://localhost:3004/donutsEmployee')
+      .then((response) => response.json())
+      .then((data: any) => {
+        setDonuts(data.data);
+      });
 
   return (
     <div>

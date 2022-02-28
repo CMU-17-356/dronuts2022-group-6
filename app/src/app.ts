@@ -7,7 +7,7 @@ import { run } from './mongoosedb'
 import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order'
 
 run().then(() => {
-  const myself = CustomerModel.findOne({ fname: 'Takho' })
+  const myself = CustomerModel.findOne({ fname: 'Taco' })
   return myself
 }).then(smth => {
   console.log(smth._id)
@@ -16,7 +16,7 @@ run().then(() => {
 
 function runExpressServer () {
   const app = express()
-  const port = 3000
+  const port = 6000
 
   app.get('/', (req, res) => {
     res.send('Hello World!')

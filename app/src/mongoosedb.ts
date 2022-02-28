@@ -6,7 +6,7 @@ import { EmployeeModel, EmployeePosition } from '../schema/employeeSchema'
 
 async function run (): Promise<void> {
   // Connect to MongoDB
-  await connect('mongodb://localhost:27017/')
+  await connect('mongodb://localhost:27017/dronuts')
 
   // Customer
   const customer1 = new CustomerModel({
