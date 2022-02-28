@@ -14,17 +14,16 @@ const droneSchema = new Schema({
     weightLimit: {
         type: Number,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return v >= 0
             },
-            message: `weight limit cannot less than 0!`
         },
         required: [true, "weight limit required"]
     }, //How much weight a drone can hold in ounces
     batteryStatus: {
         type: Number,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return 0 <= v && v <= 100
             },
             message: `battery status has to be between 0 and 100!`
@@ -39,5 +38,6 @@ const droneSchema = new Schema({
      }
 });
 
-module.exports = mongoose.model('Drone', droneSchema);
-export {droneSchema, DroneStatus}
+const DroneModel = mongoose.model('Drone', droneSchema);
+
+export {droneSchema, DroneStatus, DroneModel}

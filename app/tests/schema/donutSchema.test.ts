@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import { donutSchema } from "../../schema/donutSchema";
+import { DonutModel } from "../../schema/donutSchema";
 
-const Donut = mongoose.model('Donut', donutSchema)
 describe('Testing Donut Schema ', function () {
     test('should allow to make donut acc w valid fields', function () {
-        const correctDonut = new Donut({
+        const correctDonut = new DonutModel({
             name: "Glazed Donut",
             description: "A classic, sweet glazed donut",
             price: 2.50,
@@ -21,7 +20,7 @@ describe('Testing Donut Schema ', function () {
         expect(correctDonut.weight).toBe(1)
     });
     test('should have validation error for empty fields', function () {
-        const wrongDonut = new Donut({
+        const wrongDonut = new DonutModel({
         });
 
         const missingFieldError = wrongDonut.validateSync()
@@ -33,7 +32,7 @@ describe('Testing Donut Schema ', function () {
         expect(wrongDonut.quantity_left).toBe(0)
     });
     test('should have validation error for negative price, weight, quantity', function () {
-        const wrongDonut = new Donut({
+        const wrongDonut = new DonutModel({
             name: "Glazed Donut",
             description: "A classic, sweet glazed donut",
             price: -2.50,

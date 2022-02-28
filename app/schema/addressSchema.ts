@@ -13,5 +13,6 @@ const addressSchema = new Schema({
       ] //Foreign key to object. 
 });
 
-module.exports = mongoose.model('Address', addressSchema);
+const AddressModel = mongoose.model('Address', addressSchema);
+export { AddressModel }
 

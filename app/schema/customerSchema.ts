@@ -23,20 +23,18 @@ const customerSchema = new Schema({
   email: {
     type: String,
     validate: {
-      validator: function (v) {
+      validator: function (v: string) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
-      },
-      message: props => `${props.value} is not a valid email!`
+      }
     },
     required: [true, 'User email required']
   },
   phone: {
     type: String,
     validate: {
-      validator: function (v) {
+      validator: function (v: string) {
         return /\d{3}-\d{3}-\d{4}/.test(v);
-      },
-      message: props => `${props.value} is not a valid phone number!`
+      }
     },
     required: [true, 'User phone number required']
   },
@@ -45,6 +43,6 @@ const customerSchema = new Schema({
   ]
 });
 
-module.exports = mongoose.model('Customer', customerSchema);
+const CustomerModel = mongoose.model('Customer', customerSchema);
 
-export { customerSchema }
+export { customerSchema, CustomerModel }

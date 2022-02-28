@@ -14,7 +14,7 @@ const donutSchema = new Schema({
     price: {
         type: Number,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return v >= 0
             },
             message: `price cannot less than 0!`
@@ -25,7 +25,7 @@ const donutSchema = new Schema({
         type: Number,
         default: 0,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return v >= 0
             },
             message: `quantity left cannot less than 0!`
@@ -35,7 +35,7 @@ const donutSchema = new Schema({
     weight: {
         type: Number,
         validate:{
-            validator: (v) => {
+            validator: (v: number) => {
                 return v >= 0
             },
             message: `weight cannot less than 0!`
@@ -44,5 +44,5 @@ const donutSchema = new Schema({
     },
 });
 
-module.exports = mongoose.model('Donut', donutSchema);
-export {donutSchema}
+const DonutModel = mongoose.model('Donut', donutSchema);
+export {DonutModel}

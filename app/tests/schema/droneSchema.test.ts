@@ -1,18 +1,9 @@
-import mongoose from "mongoose";
-import { droneSchema } from "../../schema/droneSchema";
+import { DroneModel, DroneStatus } from "../../schema/droneSchema";
 
-enum DroneStatus {
-    ON_WAY_TO_DELIVERY = "on way to deliver",
-    ON_WAY_BACK_FROM_DELIVERY = "on way back from delivery",
-    IDLE = "idle",
-    CHARGING = "charging",
-    MAINTENACE= "under maintenance"
-}
 
-const Drone = mongoose.model('Drone', droneSchema)
 describe('Testing Drone Schema ', function () {
     test('should allow to make drone acc w valid fields', function () {
-        const correctDrone = new Drone({
+        const correctDrone = new DroneModel({
             weightLimit: 10,
             batteryStatus: 75,
             droneStatus: DroneStatus.CHARGING
@@ -25,7 +16,7 @@ describe('Testing Drone Schema ', function () {
         expect(correctDrone.droneStatus).toBe("charging")
     });
     test('should have validation error for empty fields', function () {
-        const wrongDrone = new Drone({
+        const wrongDrone = new DroneModel({
         });
 
         const missingFieldError = wrongDrone.validateSync()
@@ -35,7 +26,7 @@ describe('Testing Drone Schema ', function () {
         expect(wrongDrone.droneStatus).toBe("idle")
     });
     test('should have validation error for negative weightLimit, battery', function () {
-        const wrongDrone = new Drone({
+        const wrongDrone = new DroneModel({
             weightLimit: -10,
             batteryStatus: -75,
             droneStatus: DroneStatus.CHARGING
