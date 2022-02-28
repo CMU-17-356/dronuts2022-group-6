@@ -27,8 +27,6 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promis
     let orderItems
     await order.save()
     
-    console.log(thisOrderItems)
-
     //thisOrderItems = thisOrderItems.map((id, q) => [mongoose.Types.ObjectId(id), q])
 
     await makeOrderItems((order._id), thisOrderItems).then((orderItemsAndTotal) => {
@@ -43,7 +41,6 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promis
             order.save()
             resolve(order)
         } catch {
-            console.log('order items not being added')
             reject('order items adding bad')
         }
     })

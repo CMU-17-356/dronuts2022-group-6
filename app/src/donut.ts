@@ -12,7 +12,6 @@ interface Donut {
 async function getAvailableDonuts(): Promise<any> {
     return DonutModel.find({}).then((result) => {
 
-        console.log(typeof result)
         let jsonArray = []
 
         result.forEach((donut) => {
@@ -46,10 +45,8 @@ async function changeDonutQuantity(thisDonutID: any, numChange: number, add: boo
 
     return new Promise((resolve, reject) => {
         try {
-            //console.log(thisDonut)
             resolve(thisDonut)
         } catch (e) {
-            console.log('donut change not working')
             reject(e)
         }
     })

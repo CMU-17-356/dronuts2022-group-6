@@ -14,6 +14,7 @@ async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: any):
   let orderItemIDs = []
   let grandTotal = 0
 
+
   for (const [donutID, quantity] of thisOrderItems) {
     await makeOrderItem(thisOrderID, donutID, quantity).then((orderItem) => {
       grandTotal += orderItem.subtotal
@@ -23,6 +24,7 @@ async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: any):
     })
   }
 
+  
   return new Promise((resolve, reject) => {
     try{
       resolve([orderItemIDs, grandTotal])
@@ -54,7 +56,6 @@ async function makeOrderItem(thisOrderID: any, thisDonutID: any, thisQuantity: n
       orderItem.save()
       resolve(orderItem)
     } catch {
-      console.log('order items not being made')
       reject('order items bad')
     }
 

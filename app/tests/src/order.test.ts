@@ -3,10 +3,8 @@ import mongoose, { Types } from 'mongoose'
 import { CustomerModel } from '../../schema/customerSchema'
 import { DonutModel } from '../../schema/donutSchema'
 import { DroneModel, DroneStatus } from '../../schema/droneSchema'
-import { OrderItemModel } from '../../schema/orderItemsSchema'
 import { OrderModel, PaymentMethod } from '../../schema/orderSchema'
 import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from '../../src/order'
-import { makeOrderItem, makeOrderItems } from '../../src/orderItem'
 
 let glazedDonut
 let sprinkledDonut
@@ -89,7 +87,6 @@ describe('Testing order.ts ', () => {
     test('can match drone to order', async () => {
 
         return matchOrderToDrone(createdOrder._id, drone._id).then((result) => {
-            console.log(result)
             expect(result.timeOfDeparture).toBeDefined()
         })
     })
@@ -108,6 +105,7 @@ describe('Testing order.ts ', () => {
 
         return cancelOrder(createdOrder._id).then((result) => {
             expect(result).toBeTruthy()
+            mongoose.disconnect()
 
         })
     })
