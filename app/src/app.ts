@@ -38,7 +38,7 @@ function runExpressServer () {
     const donutID: any = req.params.id
 
     changeDonutQuantity(donutID, numChange, true).then((updatedDonutInfo) => {
-      res.status(200).send(updatedDonutInfo)
+      res.status(200).send(updatedDonutInfo.toJSON())
     })
   })
 
@@ -55,7 +55,7 @@ function runExpressServer () {
     const paymentMethod: PaymentMethod = req.body.paymentMethod
 
     makePayment(orderID, paymentMethod).then((paidOrder) => {
-      res.status(200).send(paidOrder)
+      res.status(200).send(paidOrder.toJSON())
     })
   })
 
@@ -72,7 +72,7 @@ function runExpressServer () {
     const droneID: any = req.body.droneID
 
     matchOrderToDrone(orderID, droneID).then((updatedOrder) => {
-      res.status(200).send(updatedOrder)
+      res.status(200).send(updatedOrder.toJSON())
     })
   })
 }
