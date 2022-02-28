@@ -13,15 +13,16 @@ async function changeDonutQuantity(thisDonutID: any, numChange: number, add: boo
     
     let thisDonut = await DonutModel.findById(thisDonutID)
 
+    if (add) {
+        thisDonut.quantity_left += Number(numChange)
+    } else {
+        thisDonut.quantity_left -= numChange
+    }
+
+    await thisDonut.save()
+
     return new Promise((resolve, reject) => {
         try {
-            if (add) {
-                thisDonut.quantity_left += numChange
-            } else {
-                thisDonut.quantity_left -= numChange
-            }
-
-            thisDonut.save()
             //console.log(thisDonut)
             resolve(thisDonut)
         } catch (e) {

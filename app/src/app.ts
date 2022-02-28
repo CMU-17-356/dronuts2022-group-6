@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import { ObjectId, Types } from 'mongoose'
 import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
@@ -16,7 +17,11 @@ run().then(() => {
 
 function runExpressServer () {
   const app = express()
-  const port = 6000
+  const port = 3000
+  
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 
   app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -27,19 +32,20 @@ function runExpressServer () {
   })
 
   app.post('/changeDonutQuantity/:id', (req, res) => {
+    console.log(req.body.numChange)
     const numChange: number = req.body.numChange
     const donutID: any = req.params.id
 
     changeDonutQuantity(donutID, numChange, true).then((updatedDonutInfo) => {
-      res.status(200).send(updatedDonutInfo)
+      res.status(200).send(updatedDonutInfo.toJSON())
     })
   })
 
   app.post('/showOrder', (req, res) => {
     const customerID: ObjectId = req.body.customerID
-    const donuts: Array<[Types.ObjectId, number]> = req.body.donuts
-
-    newOrder(customerID, donuts).then((createdOrder) => {
+    const donuts = req.body.donuts
+    const formattedDonuts = donuts.map((str) => str.split(","))
+    newOrder(customerID, formattedDonuts).then((createdOrder) => {
       res.status(200).send(createdOrder.toJSON())
     })
   })
@@ -48,7 +54,7 @@ function runExpressServer () {
     const paymentMethod: PaymentMethod = req.body.paymentMethod
 
     makePayment(orderID, paymentMethod).then((paidOrder) => {
-      res.status(200).send(paidOrder)
+      res.status(200).send(paidOrder.toJSON())
     })
   })
 
@@ -65,7 +71,7 @@ function runExpressServer () {
     const droneID: any = req.body.droneID
 
     matchOrderToDrone(orderID, droneID).then((updatedOrder) => {
-      res.status(200).send(updatedOrder)
+      res.status(200).send(updatedOrder.toJSON())
     })
   })
 }

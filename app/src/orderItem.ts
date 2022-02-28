@@ -10,7 +10,7 @@ interface OrderItem {
   subtotalWeight: number
 }
 
-async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: Array<[Types.ObjectId, number]>): Promise<any> {
+async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: any): Promise<any> {
   let orderItemIDs = []
   let grandTotal = 0
 
