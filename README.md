@@ -3,7 +3,7 @@
 ## Backend
 ### DB (mongodb)
 1. Make sure you computer has mongodb locally installed.
-2. Run ```mongo``` in your terminal
+2. Run ```mongod``` in your terminal
 3. Check which port it's running on ()
 
 ### Express
