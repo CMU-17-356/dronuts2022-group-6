@@ -8,7 +8,7 @@ import { run } from './mongoosedb'
 import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order'
 
 run().then(() => {
-  const myself = CustomerModel.findOne({ fname: 'Takho' })
+  const myself = CustomerModel.findOne({ fname: 'Taco' })
   return myself
 }).then(smth => {
   console.log(smth._id)

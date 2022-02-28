@@ -3,10 +3,19 @@ import { CustomerModel } from '../schema/customerSchema'
 import { DonutModel } from '../schema/donutSchema'
 import { DroneModel, DroneStatus } from '../schema/droneSchema'
 import { EmployeeModel, EmployeePosition } from '../schema/employeeSchema'
+import { OrderItemModel } from '../schema/orderItemsSchema'
+import { OrderModel } from '../schema/orderSchema'
 
 async function run (): Promise<void> {
   // Connect to MongoDB
-  await connect('mongodb://localhost:27017/')
+  const db = await connect('mongodb://localhost:27017/')
+
+  await CustomerModel.deleteMany({})
+  await DonutModel.deleteMany({})
+  await DroneModel.deleteMany({})
+  await OrderModel.deleteMany({})
+  await OrderItemModel.deleteMany({})
+  await EmployeeModel.deleteMany({})
 
   // Customer
   const customer1 = new CustomerModel({
@@ -17,8 +26,10 @@ async function run (): Promise<void> {
     email: 'tacol@andrew.cmu.edu',
     phone: '412-996-5373'
   })
-  await customer1.save()
-  console.log(customer1._id)
+  await customer1.save().then(() =>{
+    console.log(customer1.fname)
+  })
+  
 
   // Employee
   const employee1 = new EmployeeModel({
@@ -30,8 +41,10 @@ async function run (): Promise<void> {
     phone: '412-996-5313',
     position: EmployeePosition.MANAGER
   })
-  await employee1.save()
-  console.log(employee1.username)
+  await employee1.save().then(() =>{
+    console.log(employee1.username)
+  })
+  
 
   // donuts
   const glazedDonut = new DonutModel({
@@ -41,8 +54,10 @@ async function run (): Promise<void> {
     quantity_left: 10,
     weight: 1
   })
-  await glazedDonut.save()
-  console.log(glazedDonut._id)
+  await glazedDonut.save().then(() =>{
+    console.log(glazedDonut._id)
+  })
+  
 
   const sprinkledDonut = new DonutModel({
     name: 'Sprinkled Donut',
@@ -52,8 +67,10 @@ async function run (): Promise<void> {
     weight: 1
   })
 
-  await sprinkledDonut.save()
-  console.log(sprinkledDonut._id)
+  await sprinkledDonut.save().then(() =>{
+    console.log(sprinkledDonut._id)
+  })
+  
 
   const jellyDonut = new DonutModel({
     name: 'Jelly Donut',
