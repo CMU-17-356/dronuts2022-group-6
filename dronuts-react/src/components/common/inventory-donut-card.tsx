@@ -5,7 +5,7 @@ function InventoryDonutCardComponent(data: any) {
   let donut = data;
 
   const tempDonut = {data:
-    {'name': 'Glazed w/ Sprinkles', 'description':
+    {'name': 'Glazed', 'description':
     'Nice gooey donut', 'price': 3.00, 'id': '#54093',
     'quantity_left': 4, 'weight': '5'},
   };

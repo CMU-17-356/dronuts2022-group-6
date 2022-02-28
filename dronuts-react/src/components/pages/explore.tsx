@@ -4,14 +4,16 @@ import DonutCardComponent from '../common/donut-card';
 // import NavComponent from '../common/nav';
 
 function ExploreComponent() {
-  const [donuts] = useState(() => {
+  const [donuts, setDonuts] = useState(() => {
     return [{'id': 1, 'name': 'Glazed W/ Sprinkles', 'price': 4.00,
       'description': 'Nice donut with guey inside'}];
   });
 
-  // fetch('https://localhost:300/donuts')
-  //     .then((response) => response.json())
-  //     .then((data) => setDonuts(JSON.parse(data)));
+  fetch('https://localhost:3004/donuts')
+      .then((response) => response.json())
+      .then((data: any) => {
+        setDonuts(data.data);
+      });
 
   return (
     <div>
@@ -22,7 +24,6 @@ function ExploreComponent() {
             <Spacer h={3}/>
             <Grid.Container gap={5}>
               {donuts.map((item: Object, i: number) => {
-                console.log(item);
                 return (
                   <Grid sm={10} key={i}>
                     <DonutCardComponent data={item}/>

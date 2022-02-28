@@ -25,7 +25,6 @@ function InventoryComponent() {
             <Spacer h={3}/>
             <Grid.Container gap={5}>
               {donuts.map((item: Object, i: number) => {
-                console.log(item);
                 return (
                   <Grid sm={10} key={i}>
                     <InventoryDonutCardComponent data={item}/>
