@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Order } from '../src/order';
 
 const { Schema } = mongoose;
 
@@ -18,13 +19,13 @@ enum Status {
 }
 
 
-const orderSchema = new Schema({
-    customer_id: [
-        {type: Schema.Types.ObjectId, ref: 'Customer'} //Foreign key to object
-    ], 
-    drone_id: [
-        {type: Schema.Types.ObjectId, ref: 'Drone'} //Foreign key to object
-    ],
+const orderSchema = new Schema<Order>({
+    customerID:
+        { type: Schema.Types.ObjectId, ref: 'Customer' } //Foreign key to object
+    ,
+    droneID:
+        { type: Schema.Types.ObjectId, ref: 'Drone' } //Foreign key to object
+    ,
     address: String,
     paymentMethod: {
         type: String,
@@ -38,12 +39,15 @@ const orderSchema = new Schema({
         enum: Object.values(Status),
         required: [true, "Status required"]
     },
-    time_of_purchase: Date,
-    time_of_departure: Date,
-    time_of_arrival: Date,
-    estimated_time: Date,
-    grand_total: Number
+    orderItems: [
+        { type: Schema.Types.ObjectId, ref: 'OrderItems' }
+    ],
+    timeOfPurchase: Date,
+    timeOfDeparture: Date,
+    timeOfArrival: Date,
+    estimatedTime: Date,
+    grandTotal: Number
 });
 
-const OrderModel = mongoose.model('Order', orderSchema);
-export {OrderModel, PaymentMethod, Status}
+const OrderModel = mongoose.model<Order>('Order', orderSchema);
+export { OrderModel, PaymentMethod, Status }
