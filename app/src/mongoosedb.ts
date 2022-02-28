@@ -1,10 +1,11 @@
 import mongoose, { Schema, model, connect } from 'mongoose'
 import { CustomerModel } from '../schema/customerSchema'
 import { DonutModel } from '../schema/donutSchema'
-import { DroneModel, DroneStatus } from '../schema/droneSchema'
+import { DroneModel } from '../schema/droneSchema'
 import { EmployeeModel, EmployeePosition } from '../schema/employeeSchema'
 import { OrderItemModel } from '../schema/orderItemsSchema'
 import { OrderModel } from '../schema/orderSchema'
+import { DroneStatus } from './drone'
 
 async function run (): Promise<void> {
   // Connect to MongoDB

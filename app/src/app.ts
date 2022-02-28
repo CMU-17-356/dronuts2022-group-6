@@ -3,9 +3,10 @@ import bodyParser from 'body-parser'
 import { ObjectId, Types } from 'mongoose'
 import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
-import { changeDonutQuantity } from './donut'
+import { changeDonutQuantity, getAllDonuts, getAvailableDonuts } from './donut'
 import { run } from './mongoosedb'
 import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order'
+import { getAllDrones, getAvailableDrones } from './drone'
 
 run().then(() => {
   const myself = CustomerModel.findOne({ fname: 'Taco' })
@@ -25,6 +26,30 @@ function runExpressServer () {
 
   app.get('/', (req, res) => {
     res.send('Hello World!')
+  })
+
+  app.get('/donuts', (req, res) => {
+    getAvailableDonuts().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/donutsEmployee', (req, res) => {
+    getAllDonuts().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/drones', (req, res) => {
+    getAllDrones().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/availableDrones', (req, res) => {
+    getAvailableDrones().then((result) => {
+      res.send(result)
+    })
   })
 
   app.listen(port, () => {
