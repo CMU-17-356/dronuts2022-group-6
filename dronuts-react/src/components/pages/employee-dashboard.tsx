@@ -10,7 +10,6 @@ function EmployeeDashboardComponent() {
     fetch('http://localhost:7200/allOrders')
         .then((response) => response.json())
         .then((data: any) => {
-          console.log(data);
           setOrders(data);
         });
   }, []);
@@ -31,7 +30,8 @@ function EmployeeDashboardComponent() {
 
             <h2>Orders:</h2>
             <Grid.Container gap={5}>
-              {orders.map((item: Object, i: number) => {
+              {orders.map((item: any, i: number) => {
+                console.log(item);
                 return (
                   <Grid sm={10} key={i}>
                     <OrderCardComponent data={item}/>

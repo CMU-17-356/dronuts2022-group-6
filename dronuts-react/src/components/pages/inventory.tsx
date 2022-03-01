@@ -16,7 +16,6 @@ function InventoryComponent() {
     fetch('http://localhost:7200/donuts')
         .then((response) => response.json())
         .then((data: any) => {
-          console.log(data);
           setDonuts(data);
         });
   }, []);

@@ -27,7 +27,7 @@ function CheckoutComponent() {
     await fetch('http://localhost:7200/showOrder', requestOptions)
         .then((response) => response.json())
         .then((data: any) => {
-          console.log(data);
+          localStorage.clear();
         });
   }
 
