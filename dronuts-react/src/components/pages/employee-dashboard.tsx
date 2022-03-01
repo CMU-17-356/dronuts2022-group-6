@@ -7,7 +7,7 @@ function EmployeeDashboardComponent() {
   const [orders, setOrders] = useState([]);
 
   useEffect( () => {
-    fetch('http://localhost:7200/orders')
+    fetch('http://localhost:7200/allOrders')
         .then((response) => response.json())
         .then((data: any) => {
           console.log(data);

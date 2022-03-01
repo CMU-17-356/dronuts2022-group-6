@@ -5,7 +5,8 @@ import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
 import { changeDonutQuantity, getAllDonuts, getAvailableDonuts } from './donut'
 import { run } from './mongoosedb'
-import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order'
+import { cancelOrder, makePayment, matchOrderToDrone, newOrder, 
+    getAllOrders } from './order'
 import { getAllDrones, getAvailableDrones } from './drone'
 const cors = require('cors');
 
@@ -33,12 +34,6 @@ function runExpressServer () {
     res.send('Hello World!')
   })
 
-  app.get('/me', (req, res) => {
-    CustomerModel.findOne({ fname: 'Taco' }).limit(1).then((result) => {
-      res.send(result)
-    })
-  })
-
   app.get('/donuts', (req, res) => {
     console.log("Requested Donuts!")
     getAvailableDonuts().then((result) => {
@@ -64,6 +59,12 @@ function runExpressServer () {
     })
   })
 
+  app.get('/allOrders', (req, res) => {
+    getAllOrders().then((result) => {
+      res.send(result)
+    })
+  })
+
   app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`)
   })
@@ -85,6 +86,7 @@ function runExpressServer () {
       res.status(200).send(createdOrder.toJSON())
     })
   })
+
   app.post('/makePayment', (req, res) => {
     const orderID: Types.ObjectId = req.body.orderID
     const paymentMethod: PaymentMethod = req.body.paymentMethod
