@@ -31,7 +31,6 @@ function EmployeeDashboardComponent() {
             <h2>Orders:</h2>
             <Grid.Container gap={5}>
               {orders.map((item: any, i: number) => {
-                console.log(item);
                 return (
                   <Grid sm={10} key={i}>
                     <OrderCardComponent data={item}/>

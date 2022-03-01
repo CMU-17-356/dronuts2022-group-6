@@ -11,7 +11,7 @@ interface Order {
     address?: string
     paymentMethod: PaymentMethod
     status: Status
-    orderItems: [ObjectId]
+    orderItems: [{type: ObjectId, ref: 'OrderItems'}]
     timeOfPurchase?: Date
     timeOfDeparture?: Date
     timeOfArrival?: Date
@@ -80,10 +80,11 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
 
     thisOrder.droneID = thisDroneID
     thisOrder.timeOfDeparture = new Date()
+    thisOrder.status = Status.INDELIVERY
 
     return thisOrder.save().then(order => {
         try {
-            return (thisOrder.toJSON())
+            return (thisOrder)
         } catch(e){
             console.log(e)
             return (e)
@@ -92,7 +93,10 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
 }
 
 async function getAllOrders(): Promise<any> {
-    return OrderModel.find({}).then((result) => {
+    return OrderModel.find({}).populate({
+            path: 'orderItems',
+            populate: { path: 'donutID' }
+        }).then((result) => {
         return result
     })
 }
