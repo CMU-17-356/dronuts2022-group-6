@@ -1,5 +1,5 @@
 import {Grid, Page, Spacer} from '@geist-ui/react';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import InventoryDonutCardComponent from '../common/inventory-donut-card';
 // import NavComponent from '../common/nav';
 
@@ -12,11 +12,14 @@ function InventoryComponent() {
       'price': 2.00, 'id': '#54094', 'quantity_left': 2, 'weight': '4.5'}];
   });
 
-  fetch('https://localhost:3004/donutsEmployee')
-      .then((response) => response.json())
-      .then((data: any) => {
-        setDonuts(data.data);
-      });
+  useEffect( () => {
+    fetch('http://localhost:7200/donuts')
+        .then((response) => response.json())
+        .then((data: any) => {
+          console.log(data);
+          setDonuts(data);
+        });
+  }, []);
 
   return (
     <div>

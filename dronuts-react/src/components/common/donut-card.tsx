@@ -20,7 +20,7 @@ function DonutCardComponent(data: any) {
   function handleSubmit() {
     const cart = localStorage.getItem('cart');
     const item = {'amount': amount,
-      'name': donut.data.name, 'price': donut.data.price, 'id': donut.data.id};
+      'name': donut.data.name, 'price': donut.data.price, 'id': donut.data._id};
     if (cart != null) {
       const parsedCart: Object[] = JSON.parse(cart);
       parsedCart.push(item);

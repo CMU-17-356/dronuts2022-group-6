@@ -1,18 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import NavComponent from '../common/nav';
 import {Divider, Page, Spacer, Button} from '@geist-ui/react';
 import {CreditCard} from '@geist-ui/icons';
 import CartComponent from '../common/cart';
 
 function CheckoutComponent() {
+  const [cart] = useState(() => {
+    const cart = localStorage.getItem('cart');
+    const initialValue = cart ? JSON.parse(cart) : null;
+    return initialValue || [];
+  });
+
   async function handleOrder() {
-    const postDetails = {};
+    const mappedDonuts = cart.map((item: any) => {
+      return [item.id, Number(item.amount)];
+    });
+    const orderDetails = {'customerID': '621d77b7d7ad3f997e60ef00',
+      'donuts': mappedDonuts};
     const requestOptions = {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(postDetails),
+      headers: {'Content-Type': 'application/json',
+        'Accept': 'application/json'},
+      body: JSON.stringify(orderDetails),
     };
-    await fetch('https://reqres.in/api/posts', requestOptions);
+    console.log(requestOptions);
+    await fetch('http://localhost:7200/showOrder', requestOptions)
+        .then((response) => response.json())
+        .then((data: any) => {
+          console.log(data);
+        });
   }
 
   return (
