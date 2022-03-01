@@ -4,7 +4,7 @@ import { OrderItemModel } from '../schema/orderItemsSchema'
 
 interface OrderItem {
   orderID: ObjectId
-  donutID: ObjectId
+  donutID: {'type': ObjectId, 'ref': 'Donut'}
   quantity: number
   subtotal: number
   subtotalWeight: number

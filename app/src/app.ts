@@ -3,10 +3,10 @@ import bodyParser from 'body-parser'
 import { ObjectId, Types } from 'mongoose'
 import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
-import { changeDonutQuantity, getAllDonuts, getAvailableDonuts } from './donut'
+import { changeDonutQuantity, getAllDonuts, getAvailableDonuts} from './donut'
 import { run } from './mongoosedb'
 import { cancelOrder, makePayment, matchOrderToDrone, newOrder, 
-    getAllOrders } from './order'
+    getAllOrders, } from './order'
 import { getAllDrones, getAvailableDrones } from './drone'
 const cors = require('cors');
 

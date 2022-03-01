@@ -45,44 +45,6 @@ async function run (): Promise<void> {
   await employee1.save().then(() =>{
     console.log(employee1.username)
   })
-  
-
-  // donuts
-  const glazedDonut = new DonutModel({
-    name: 'Glazed Donut',
-    description: 'A classic, sweet glazed donut',
-    price: 2.50,
-    quantity_left: 10,
-    weight: 1
-  })
-  await glazedDonut.save().then(() =>{
-    console.log(glazedDonut._id)
-  })
-  
-
-  const sprinkledDonut = new DonutModel({
-    name: 'Sprinkled Donut',
-    description: "Our donut with sprinkles. It's pink!",
-    price: 3.50,
-    quantity_left: 5,
-    weight: 1
-  })
-
-  await sprinkledDonut.save().then(() =>{
-    console.log(sprinkledDonut._id)
-  })
-  
-
-  const jellyDonut = new DonutModel({
-    name: 'Jelly Donut',
-    description: 'Donut with strawberry jam in it. So sweet',
-    price: 3.50,
-    quantity_left: 3,
-    weight: 1
-  })
-
-  await jellyDonut.save()
-  console.log(jellyDonut._id)
 
   // drones
   const idleDrone = new DroneModel({
@@ -111,6 +73,80 @@ async function run (): Promise<void> {
 
   await deliveringDrone.save()
   console.log(deliveringDrone.droneStatus)
+
+  // donuts
+  const glazedDonut = new DonutModel({
+    name: 'Glazed Donut',
+    description: 'A classic, sweet glazed donut',
+    price: 2.50,
+    quantity_left: 10,
+    weight: 1.21
+  })
+  await glazedDonut.save().then(() =>{
+    console.log(glazedDonut._id)
+  })
+  
+
+  const sprinkledDonut = new DonutModel({
+    name: 'Sprinkled Donut',
+    description: "Our donut with sprinkles. It's pink!",
+    price: 3.50,
+    quantity_left: 5,
+    weight: 1.32
+  })
+
+  await sprinkledDonut.save().then(() =>{
+    console.log(sprinkledDonut._id)
+  })
+  
+
+  const jellyDonut = new DonutModel({
+    name: 'Jelly Donut',
+    description: 'Donut with strawberry jam in it. So sweet',
+    price: 3.50,
+    quantity_left: 3,
+    weight: 1.74
+  })
+
+  await jellyDonut.save()
+  console.log(jellyDonut._id)
+
+  const cakeDonut = new DonutModel({
+    name: 'Cake Donut',
+    description: 'A classic, donut. Have cake for breakfast!',
+    price: 1.50,
+    quantity_left: 20,
+    weight: .75
+  })
+
+  await cakeDonut.save().then(() =>{
+    console.log(cakeDonut._id)
+  })
+  
+
+  const powderDonut = new DonutModel({
+    name: 'Powdered Donut',
+    description: "Powdered and prepared.",
+    price: 2.25,
+    quantity_left: 13,
+    weight: 1.1
+  })
+
+  await powderDonut.save().then(() =>{
+    console.log(powderDonut._id)
+  })
+  
+
+  const chocolateSprinkleDonut = new DonutModel({
+    name: 'Chocolate Sprinkle Donut',
+    description: 'Donut with chocolate and yes, sprinkles!',
+    price: 2.75,
+    quantity_left: 20,
+    weight: 1.4
+  })
+
+  await chocolateSprinkleDonut.save()
+  console.log(chocolateSprinkleDonut._id)
 }
 
 export { run }
