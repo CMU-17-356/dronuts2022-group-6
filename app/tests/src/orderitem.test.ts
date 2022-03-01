@@ -60,6 +60,7 @@ describe('Testing OrderItem.ts ', () => {
         return makeOrderItem(thisOrder._id, glazedDonut._id, 4).then((thisOrderItem) => {
             expect(thisOrderItem.orderID).toEqual(thisOrder._id)
             expect(thisOrderItem.donutID).toEqual(glazedDonut._id)
+            expect(thisOrderItem.name).toEqual(glazedDonut.name)
             expect(thisOrderItem.quantity).toEqual(4)
             expect(thisOrderItem.subtotal).toEqual(glazedDonut.price * 4)
             expect(thisOrderItem.subtotalWeight).toEqual(glazedDonut.weight * 4)

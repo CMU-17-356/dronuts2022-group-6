@@ -5,11 +5,13 @@ import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
 import { changeDonutQuantity, getAllDonuts, getAvailableDonuts } from './donut'
 import { run } from './mongoosedb'
-import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order'
+import { cancelOrder, makePayment, matchOrderToDrone, newOrder, 
+    getAllOrders } from './order'
 import { getAllDrones, getAvailableDrones } from './drone'
+const cors = require('cors');
 
 run().then(() => {
-  const myself = CustomerModel.findOne({ fname: 'Taco' })
+  const myself = CustomerModel.findOne({ fname: 'Taco' }).limit(1)
   return myself
 }).then(smth => {
   console.log(smth._id)
@@ -18,18 +20,22 @@ run().then(() => {
 
 function runExpressServer () {
   const app = express()
-  const port = 3000
+  const port = 7200
   
   app.use(bodyParser.urlencoded({
     extended: true
   }));
 
+  app.use(bodyParser.json());
+
+  app.use(cors());
 
   app.get('/', (req, res) => {
     res.send('Hello World!')
   })
 
   app.get('/donuts', (req, res) => {
+    console.log("Requested Donuts!")
     getAvailableDonuts().then((result) => {
       res.send(result)
     })
@@ -53,6 +59,12 @@ function runExpressServer () {
     })
   })
 
+  app.get('/allOrders', (req, res) => {
+    getAllOrders().then((result) => {
+      res.send(result)
+    })
+  })
+
   app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`)
   })
@@ -70,11 +82,11 @@ function runExpressServer () {
   app.post('/showOrder', (req, res) => {
     const customerID: ObjectId = req.body.customerID
     const donuts = req.body.donuts
-    const formattedDonuts = donuts.map((str) => str.split(","))
-    newOrder(customerID, formattedDonuts).then((createdOrder) => {
+    newOrder(customerID, donuts).then((createdOrder) => {
       res.status(200).send(createdOrder.toJSON())
     })
   })
+
   app.post('/makePayment', (req, res) => {
     const orderID: Types.ObjectId = req.body.orderID
     const paymentMethod: PaymentMethod = req.body.paymentMethod

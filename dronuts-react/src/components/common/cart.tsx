@@ -35,7 +35,7 @@ function CartComponent() {
   return (
     <div className='cart'>
       <Grid.Container gap={ 1 } justify="center" direction={ 'column' }>
-        {cart.map((item: Object, i: number) => {
+        {cart.map((item: any, i: number) => {
           return (<Grid key={i}><CartCardComponent data={item}/></Grid>);
         })}
       </Grid.Container>

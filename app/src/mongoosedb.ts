@@ -9,7 +9,7 @@ import { DroneStatus } from './drone'
 
 async function run (): Promise<void> {
   // Connect to MongoDB
-  const db = await connect('mongodb://localhost:27017/')
+  const db = await connect('mongodb://localhost:27017/dronuts')
 
   await CustomerModel.deleteMany({})
   await DonutModel.deleteMany({})

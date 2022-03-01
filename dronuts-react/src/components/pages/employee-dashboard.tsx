@@ -1,9 +1,19 @@
 import {Divider, Grid, Page, Spacer, Text} from '@geist-ui/react';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import OrderCardComponent from '../common/order-card';
 // import NavComponent from '../common/nav';
 
 function EmployeeDashboardComponent() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect( () => {
+    fetch('http://localhost:7200/allOrders')
+        .then((response) => response.json())
+        .then((data: any) => {
+          setOrders(data);
+        });
+  }, []);
+
   return (
     <div>
       <div className='page'>
@@ -20,14 +30,13 @@ function EmployeeDashboardComponent() {
 
             <h2>Orders:</h2>
             <Grid.Container gap={5}>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
-              <Grid sm={24}><OrderCardComponent /></Grid>
+              {orders.map((item: any, i: number) => {
+                console.log(item);
+                return (
+                  <Grid sm={10} key={i}>
+                    <OrderCardComponent data={item}/>
+                  </Grid>);
+              })}
             </Grid.Container>
           </Page.Content>
         </Page>

@@ -1,19 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import ExploreComponent from '../../components/pages/explore';
-
-function setupFetchStub(data: any) : any {
-  return function fetchStub() {
-    return new Promise((resolve) => {
-      resolve({
-        json: () =>
-          Promise.resolve({
-            'data': data,
-          }),
-      });
-    });
-  };
-}
+import setupFetchStub from '../fetchMock';
 
 test('it renders explore component', () => {
   render(<ExploreComponent />);
