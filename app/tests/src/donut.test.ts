@@ -38,14 +38,12 @@ describe('Testing Donut.ts ', function () {
 
     return changeDonutQuantity(donutID, 5, false).then((thisDonut) => {
       expect(thisDonut.quantity_left).toBe(5)
-      mongoose.disconnect();
 
     })
   })
 
 
   test('getAllDonuts Work Properly', async function () {
-    await mongoose.connect('mongodb://localhost:27017/');
     await DonutModel.deleteMany({})
     const correctDonut = new DonutModel({
       name: 'Glazed Donut',
