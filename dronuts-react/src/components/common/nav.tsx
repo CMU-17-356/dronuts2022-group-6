@@ -1,6 +1,6 @@
 import React from 'react';
 import {Avatar, Button, Drawer, Spacer} from '@geist-ui/react';
-import {ShoppingCart} from '@geist-ui/icons';
+import {ArrowRightCircle, ShoppingCart} from '@geist-ui/icons';
 import './nav.css';
 import CartComponent from './cart';
 import landingLogo from '../../assets/DronutsLogo.png';
@@ -35,6 +35,11 @@ function NavComponent() {
             <Drawer.Subtitle>Donuts!</Drawer.Subtitle>
             <Drawer.Content>
               <CartComponent />
+              <a href='/checkout'>
+                <Button className='checkout-button' auto
+                  ghost iconRight={ <ArrowRightCircle /> }>Checkout
+                </Button>
+              </a>
             </Drawer.Content>
           </Drawer>
         </div>
