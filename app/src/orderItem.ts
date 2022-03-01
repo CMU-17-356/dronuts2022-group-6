@@ -62,5 +62,9 @@ async function makeOrderItem(thisOrderID: any, thisDonutID: any, thisQuantity: n
   })
 }
 
+async function findOrderItem(orderItemID: any){
+  return await OrderItemModel.findById(orderItemID)
+}
 
-export { OrderItem, makeOrderItems, makeOrderItem }
+
+export { OrderItem, makeOrderItems, makeOrderItem, findOrderItem}

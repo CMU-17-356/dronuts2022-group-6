@@ -41,4 +41,24 @@ describe('Testing Donut.ts ', function () {
       mongoose.disconnect();
     })
   })
+
+
+  // test('getAllDonuts Work Properly', async function () {
+  //   const correctDonut = new DonutModel({
+  //     name: 'Glazed Donut',
+  //     description: 'A classic, sweet glazed donut',
+  //     price: 2.50,
+  //     quantity_left: 10,
+  //     weight: 1
+  //   })
+  //   await correctDonut.save()
+
+
+  //   correctDonut._id
+
+  //   return changeDonutQuantity(correctDonut._id, 5, true).then((thisDonut) => {
+      
+  //     expect(thisDonut.quantity_left).toBe(15)
+  //   })
+  // })
 })
