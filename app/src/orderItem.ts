@@ -49,6 +49,7 @@ async function makeOrderItem(thisOrderID: any, thisDonutID: any, thisQuantity: n
       const orderItem = new OrderItemModel({
         orderID: thisOrderID,
         donutID: thisDonutID,
+        name: thisDonut.name,
         quantity: thisQuantity,
         subtotal: thisDonut.price * thisQuantity,
         subtotalWeight: thisDonut.weight * thisQuantity
