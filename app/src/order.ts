@@ -91,4 +91,10 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
     })
 }
 
-export { Order, newOrder, makePayment, cancelOrder, matchOrderToDrone }
+async function getAllOrders(): Promise<any> {
+    return OrderModel.find({}).then((result) => {
+        return result
+    })
+}
+
+export { Order, newOrder, makePayment, cancelOrder, matchOrderToDrone, getAllOrders}
