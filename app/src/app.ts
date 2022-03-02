@@ -5,7 +5,7 @@ import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
 import { changeDonutQuantity, getAllDonuts, getAvailableDonuts} from './donut'
 import { run } from './mongoosedb'
-import { cancelOrder, makePayment, matchOrderToDrone, newOrder, 
+import { cancelOrder, matchOrderToDrone, newOrder, getOrder,
     getAllOrders, } from './order'
 import { getAllDrones, getAvailableDrones } from './drone'
 const cors = require('cors');
@@ -79,20 +79,20 @@ function runExpressServer () {
     })
   })
 
-  app.post('/showOrder', (req, res) => {
+  app.post('/makeOrder', (req, res) => {
     const customerID: ObjectId = req.body.customerID
     const donuts = req.body.donuts
-    newOrder(customerID, donuts).then((createdOrder) => {
+    const paymentMethod: PaymentMethod = req.body.paymentMethod
+    newOrder(customerID, donuts, paymentMethod).then((createdOrder) => {
       res.status(200).send(createdOrder.toJSON())
     })
   })
 
-  app.post('/makePayment', (req, res) => {
+  app.post('/getOrder', (req, res) => {
     const orderID: Types.ObjectId = req.body.orderID
-    const paymentMethod: PaymentMethod = req.body.paymentMethod
 
-    makePayment(orderID, paymentMethod).then((paidOrder) => {
-      res.status(200).send(paidOrder.toJSON())
+    getOrder(orderID).then((order) => {
+      res.status(200).send(order)
     })
   })
 

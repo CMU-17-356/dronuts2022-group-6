@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Grid, Page, Spacer, Card, Progress, Image, Text}
+import {Divider, Grid, Page, Spacer, Card, Progress, Image, Text, Button}
   from '@geist-ui/react';
 import map from '../../assets/map.png';
+import {useNavigate} from 'react-router';
 
 function ConfirmationComponent() {
+  const navigate = useNavigate();
+
+  const [orderID, setOrderID] = useState('');
   const [order, setOrder]= useState(() : any => {});
 
   useEffect(() => {
@@ -11,6 +15,7 @@ function ConfirmationComponent() {
     const id = queryParams.get('orderid');
     console.log(id);
     if (id) {
+      setOrderID(id);
       const requestOptions = {
         method: 'POST',
         headers: {'Content-Type': 'application/json',
@@ -30,6 +35,22 @@ function ConfirmationComponent() {
     const d = new Date(date);
     return ' ' + d.getMonth() + '/' + d.getDay() + '/' + d.getFullYear() +
       ' ' + d.getHours()+':'+d.getMinutes();
+  }
+
+  function cancelOrder() {
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+        'Accept': 'application/json'},
+      body: JSON.stringify({'orderID': orderID}),
+    };
+    fetch('http://localhost:7200/cancelOrder', requestOptions)
+        .then((response) => response.json())
+        .then((data: any) => {
+          console.log(data);
+          setOrder(data);
+          navigate({pathname: '/'});
+        });
   }
 
   if (order) {
@@ -64,6 +85,7 @@ function ConfirmationComponent() {
                       </address>
                     </Grid>
                   </Grid.Container>
+                  <Button onClick={cancelOrder}>Cancel Order</Button>
                 </div>
               </Card>
             </Page.Content>
