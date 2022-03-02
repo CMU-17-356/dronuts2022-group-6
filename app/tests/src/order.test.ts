@@ -4,7 +4,7 @@ import { CustomerModel } from '../../schema/customerSchema'
 import { DonutModel } from '../../schema/donutSchema'
 import { DroneModel, DroneStatus } from '../../schema/droneSchema'
 import { OrderModel, PaymentMethod } from '../../schema/orderSchema'
-import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from '../../src/order'
+import { cancelOrder, matchOrderToDrone, newOrder } from '../../src/order'
 
 let glazedDonut
 let sprinkledDonut
@@ -68,19 +68,12 @@ describe('Testing order.ts ', () => {
     test('can make new order', async () => {
         const customerID = correctCustomer._id
 
-        return newOrder(customerID, items).then((thisOrder) => {
+        return newOrder(customerID, items, PaymentMethod.CREDIT).then((thisOrder) => {
             createdOrder = thisOrder
             expect((thisOrder.orderItems).length).toEqual(3)
             expect(thisOrder.grandTotal).toEqual(31)
-        })
-    })
-
-    test('can make payment', async () => {
-
-        return makePayment(createdOrder._id, PaymentMethod.CREDIT).then((orderJson) => {
-            expect((orderJson.paymentMethod)).toEqual(PaymentMethod.CREDIT)
-            expect(orderJson.timeOfPurchase).toBeDefined()
-
+            expect((thisOrder.paymentMethod)).toEqual(PaymentMethod.CREDIT)
+            expect(thisOrder.timeOfPurchase).toBeDefined()
         })
     })
 

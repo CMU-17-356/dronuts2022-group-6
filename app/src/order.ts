@@ -19,7 +19,8 @@ interface Order {
     grandTotal?: Number
 }
 
-async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promise<any> {
+async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any], 
+        payment: PaymentMethod): Promise<any> {
     const order = new OrderModel({
         customerID: thisCustomerID
     })
@@ -38,25 +39,14 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promis
         try {
             order.grandTotal = grandTotal
             order.orderItems = orderItems
+            order.paymentMethod = payment
+            order.timeOfPurchase = new Date()
             order.save()
             resolve(order)
         } catch {
             reject('order items adding bad')
         }
     })
-}
-
-async function makePayment(thisOrderID: any, payment: PaymentMethod): Promise<any> {
-
-    const thisOrder = await OrderModel.findById(thisOrderID)
-    thisOrder.paymentMethod = payment
-    thisOrder.timeOfPurchase = new Date()
-
-
-    return thisOrder.save().then(order => {
-        return order.toJSON()
-
-    }).catch(err => console.log(err))
 }
 
 async function cancelOrder(thisOrderID: any): Promise<boolean> {
@@ -92,6 +82,10 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
     })
 }
 
+async function getOrder(orderID: any){
+  return await OrderModel.findById(orderID)
+}
+
 async function getAllOrders(): Promise<any> {
     return OrderModel.find({}).populate({
             path: 'orderItems',
@@ -101,4 +95,4 @@ async function getAllOrders(): Promise<any> {
     })
 }
 
-export { Order, newOrder, makePayment, cancelOrder, matchOrderToDrone, getAllOrders}
+export { Order, newOrder, cancelOrder, matchOrderToDrone, getAllOrders, getOrder}
