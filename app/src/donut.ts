@@ -38,7 +38,7 @@ async function changeDonutQuantity(thisDonutID: any, numChange: number, add: boo
     if (add) {
         thisDonut.quantity_left += Number(numChange)
     } else {
-        thisDonut.quantity_left -= numChange
+        thisDonut.quantity_left -= Number(numChange)
     }
 
     await thisDonut.save()

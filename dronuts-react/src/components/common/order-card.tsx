@@ -3,7 +3,7 @@ import {Card, Text, Divider, Badge, Checkbox,
 import React, {useEffect, useState} from 'react';
 
 function OrderCardComponent(data: any) {
-  const [drones] = useState([]);
+  const [drones, setDrones] = useState([]);
   const order = data.data;
   const [status, setStatus] = useState(order ? order.status : '');
   const orderItems = order ? order.orderItems : [];
@@ -12,7 +12,7 @@ function OrderCardComponent(data: any) {
     fetch('http://localhost:7200/availableDrones')
         .then((response) => response.json())
         .then((data: any) => {
-          // setDrones(data);
+          setDrones(data);
         });
   }, []);
 

@@ -69,13 +69,14 @@ function runExpressServer () {
     return console.log(`Express is listening at http://localhost:${port}`)
   })
 
-  app.post('/changeDonutQuantity/:id', (req, res) => {
+  app.post('/changeDonutQuantity', (req, res) => {
     console.log(req.body.numChange)
     const numChange: number = req.body.numChange
-    const donutID: any = req.params.id
+    const add: boolean = req.body.add
+    const donutID: any = req.body.donutID
 
-    changeDonutQuantity(donutID, numChange, true).then((updatedDonutInfo) => {
-      res.status(200).send(updatedDonutInfo.toJSON())
+    changeDonutQuantity(donutID, numChange, add).then((updatedDonutInfo) => {
+      res.status(200).send(updatedDonutInfo)
     })
   })
 

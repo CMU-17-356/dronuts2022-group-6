@@ -5,17 +5,14 @@ import InventoryDonutCardComponent from '../common/inventory-donut-card';
 
 function InventoryComponent() {
   const [donuts, setDonuts] = useState(() => {
-    return [{'id': 1, 'name': 'Glazed W/ Sprinkles', 'price': 4.00,
-      'description': 'Nice donut with guey inside',
-      'quantity_left': 4, 'weight': 4},
-    {'name': 'Plain', 'description': 'Nice plain donut',
-      'price': 2.00, 'id': '#54094', 'quantity_left': 2, 'weight': '4.5'}];
+    return [];
   });
 
   useEffect( () => {
-    fetch('http://localhost:7200/donuts')
+    fetch('http://localhost:7200/donutsEmployee')
         .then((response) => response.json())
         .then((data: any) => {
+          console.log(data);
           setDonuts(data);
         });
   }, []);
@@ -28,7 +25,7 @@ function InventoryComponent() {
             <h2>All Donuts</h2>
             <Spacer h={3}/>
             <Grid.Container gap={5}>
-              {donuts.map((item: Object, i: number) => {
+              {donuts.map((item: any, i: number) => {
                 return (
                   <Grid sm={10} key={i}>
                     <InventoryDonutCardComponent data={item}/>
