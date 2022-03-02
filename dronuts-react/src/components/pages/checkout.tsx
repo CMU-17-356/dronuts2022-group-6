@@ -3,8 +3,11 @@ import NavComponent from '../common/nav';
 import {Divider, Page, Spacer, Button} from '@geist-ui/react';
 import {CreditCard} from '@geist-ui/icons';
 import CartComponent from '../common/cart';
+import {useNavigate} from 'react-router-dom';
 
 function CheckoutComponent() {
+  const navigate = useNavigate();
+
   const [cart] = useState(() => {
     const cart = localStorage.getItem('cart');
     const initialValue = cart ? JSON.parse(cart) : null;
@@ -16,18 +19,18 @@ function CheckoutComponent() {
       return [item.id, Number(item.amount)];
     });
     const orderDetails = {'customerID': '621d77b7d7ad3f997e60ef00',
-      'donuts': mappedDonuts};
+      'donuts': mappedDonuts, 'paymentMethod': 'visa'};
     const requestOptions = {
       method: 'POST',
       headers: {'Content-Type': 'application/json',
         'Accept': 'application/json'},
       body: JSON.stringify(orderDetails),
     };
-    console.log(requestOptions);
-    await fetch('http://localhost:7200/showOrder', requestOptions)
+    await fetch('http://localhost:7200/makeOrder', requestOptions)
         .then((response) => response.json())
         .then((data: any) => {
           localStorage.clear();
+          navigate({pathname: '/confirmation', search: '?orderid='+data._id});
         });
   }
 
@@ -47,11 +50,9 @@ function CheckoutComponent() {
 
             <Spacer h={ 2 }/>
             <div>
-              <a href='/confirmation'>
-                <Button onClick={handleOrder} iconRight={<CreditCard/>} auto>
-                        Proceed with CommerceFriend
-                </Button>
-              </a>
+              <Button onClick={handleOrder} iconRight={<CreditCard/>} auto>
+                      Proceed with CommerceFriend
+              </Button>
             </div>
             <div>
             </div>
