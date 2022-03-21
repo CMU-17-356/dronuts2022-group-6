@@ -5,7 +5,7 @@ import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
 import { changeDonutQuantity } from './donut'
 import { run } from './mongoosedb'
-import { cancelOrder, makePayment, matchOrderToDrone, newOrder } from './order'
+import { cancelOrder, getOrder, makePayment, matchOrderToDrone, newOrder } from './order'
 
 run().then(() => {
   const myself = CustomerModel.findOne({ fname: 'Takho' })
@@ -56,6 +56,14 @@ function runExpressServer () {
 
     makePayment(orderID, paymentMethod).then((paidOrder) => {
       res.status(200).send(paidOrder.toJSON())
+    })
+  })
+
+  app.get('/getOrder', (req, res) => {
+    const orderID: Types.ObjectId = req.body.orderID
+
+    getOrder(orderID).then((result) => {
+      res.send(result)
     })
   })
 
