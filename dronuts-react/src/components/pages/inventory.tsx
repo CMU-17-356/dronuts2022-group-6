@@ -1,12 +1,15 @@
 import {Grid, Page, Spacer} from '@geist-ui/react';
 import React, {useEffect, useState} from 'react';
-import DonutCardComponent from '../common/donut-card';
+import InventoryDonutCardComponent from '../common/inventory-donut-card';
 // import NavComponent from '../common/nav';
 
-function ExploreComponent() {
+function InventoryComponent() {
   const [donuts, setDonuts] = useState(() => {
     return [{'id': 1, 'name': 'Glazed W/ Sprinkles', 'price': 4.00,
-      'description': 'Nice donut with guey inside'}];
+      'description': 'Nice donut with guey inside',
+      'quantity_left': 4, 'weight': 4},
+    {'name': 'Plain', 'description': 'Nice plain donut',
+      'price': 2.00, 'id': '#54094', 'quantity_left': 2, 'weight': '4.5'}];
   });
 
   useEffect( () => {
@@ -16,7 +19,6 @@ function ExploreComponent() {
           setDonuts(data);
         });
   }, []);
-
 
   return (
     <div>
@@ -29,7 +31,7 @@ function ExploreComponent() {
               {donuts.map((item: Object, i: number) => {
                 return (
                   <Grid sm={10} key={i}>
-                    <DonutCardComponent data={item}/>
+                    <InventoryDonutCardComponent data={item}/>
                   </Grid>);
               })}
             </Grid.Container>
@@ -40,4 +42,4 @@ function ExploreComponent() {
   );
 }
 
-export default ExploreComponent;
+export default InventoryComponent;

@@ -12,7 +12,7 @@ interface Order {
     address?: string
     paymentMethod: PaymentMethod
     status: Status
-    orderItems: [ObjectId]
+    orderItems: [{type: ObjectId, ref: 'OrderItems'}]
     timeOfPurchase?: Date
     timeOfDeparture?: Date
     timeOfArrival?: Date
@@ -20,12 +20,14 @@ interface Order {
     grandTotal?: Number
 }
 
+
 const LAT_LOW = 40.498132
 const LAT_HIGH = 40.410934
 const LONG_LOW = -80.109799
 const LONG_HIGH = -79.803250
 
-async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promise<any> {
+async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any], payment: PaymentMethod): Promise<any> {
+
     const order = new OrderModel({
         customerID: thisCustomerID
     })
@@ -33,8 +35,6 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promis
     let orderItems
     await order.save()
     
-    console.log(thisOrderItems)
-
     //thisOrderItems = thisOrderItems.map((id, q) => [mongoose.Types.ObjectId(id), q])
 
     await makeOrderItems((order._id), thisOrderItems).then((orderItemsAndTotal) => {
@@ -46,26 +46,14 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any]): Promis
         try {
             order.grandTotal = grandTotal
             order.orderItems = orderItems
+            order.paymentMethod = payment
+            order.timeOfPurchase = new Date()
             order.save()
             resolve(order)
         } catch {
-            console.log('order items not being added')
             reject('order items adding bad')
         }
     })
-}
-
-async function makePayment(thisOrderID: any, payment: PaymentMethod): Promise<any> {
-
-    const thisOrder = await OrderModel.findById(thisOrderID)
-    thisOrder.paymentMethod = payment
-    thisOrder.timeOfPurchase = new Date()
-
-
-    return thisOrder.save().then(order => {
-        return order.toJSON()
-
-    }).catch(err => console.log(err))
 }
 
 async function getOrder(orderID): Promise<any>{
@@ -119,7 +107,7 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
 
     return thisOrder.save().then(order => {
         try {
-            return (thisOrder.toJSON())
+            return (thisOrder)
         } catch(e){
             console.log(e)
             return (e)
@@ -127,4 +115,14 @@ async function matchOrderToDrone(thisOrderID: Types.ObjectId, thisDroneID: Objec
     })
 }
 
-export { Order, newOrder, makePayment, getOrder, cancelOrder, matchOrderToDrone }
+
+async function getAllOrders(): Promise<any> {
+    return OrderModel.find({}).populate({
+            path: 'orderItems',
+            populate: { path: 'donutID' }
+        }).then((result) => {
+        return result
+    })
+}
+
+export { Order, newOrder, cancelOrder, matchOrderToDrone, getAllOrders, getOrder}

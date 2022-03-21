@@ -11,7 +11,9 @@ let sprinkledDonut
 let jellyDonut
 describe('Testing OrderItem.ts ', () => {
     test('can make single item', async () => {
+        
         await mongoose.connect('mongodb://localhost:27017/');
+        
         const correctCustomer = new CustomerModel({
             username: 'takholee',
             password: 'ilovedonuts',
@@ -53,9 +55,12 @@ describe('Testing OrderItem.ts ', () => {
         const thisOrder = new OrderModel({ customerID: customerID })
         await thisOrder.save()
 
+        
+
         return makeOrderItem(thisOrder._id, glazedDonut._id, 4).then((thisOrderItem) => {
             expect(thisOrderItem.orderID).toEqual(thisOrder._id)
             expect(thisOrderItem.donutID).toEqual(glazedDonut._id)
+            expect(thisOrderItem.name).toEqual(glazedDonut.name)
             expect(thisOrderItem.quantity).toEqual(4)
             expect(thisOrderItem.subtotal).toEqual(glazedDonut.price * 4)
             expect(thisOrderItem.subtotalWeight).toEqual(glazedDonut.weight * 4)
@@ -75,22 +80,19 @@ describe('Testing OrderItem.ts ', () => {
 
         const customerID = correctCustomer._id
         const thisOrder = new OrderModel({ customerID: customerID })
+        
         await thisOrder.save()
         
         const items: Array<[Types.ObjectId, number]> = [[glazedDonut._id, 4], [sprinkledDonut._id, 4], [jellyDonut._id, 2]]
 
-        
+       
         return makeOrderItems(thisOrder._id, items).then((orderItemIDsAndGrandTotal) => {
+            
             const orderIDs = orderItemIDsAndGrandTotal[0]
-            console.log(`this is orderItemIds ${orderIDs}`)
 
             orderIDs.forEach((id) =>{
-                console.log(id)
                 OrderItemModel.findById(id, (err, orderItem) => {
-                    if (err){
-                        console.log(err)
-                    }
-                    console.log(orderItem)
+
                     expect(orderItem.orderID).toEqual(thisOrder._id)
 
                     if (orderItem.donutID.equals(glazedDonut._id)) {

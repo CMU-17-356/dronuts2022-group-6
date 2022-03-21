@@ -3,12 +3,14 @@ import bodyParser from 'body-parser'
 import { ObjectId, Types } from 'mongoose'
 import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
-import { changeDonutQuantity } from './donut'
+import { changeDonutQuantity, getAllDonuts, getAvailableDonuts} from './donut'
 import { run } from './mongoosedb'
-import { cancelOrder, getOrder, makePayment, matchOrderToDrone, newOrder } from './order'
+import { cancelOrder, matchOrderToDrone, newOrder, getOrder, getAllOrders, } from './order'
+import { getAllDrones, getAvailableDrones } from './drone'
+const cors = require('cors');
 
 run().then(() => {
-  const myself = CustomerModel.findOne({ fname: 'Takho' })
+  const myself = CustomerModel.findOne({ fname: 'Taco' }).limit(1)
   return myself
 }).then(smth => {
   console.log(smth._id)
@@ -17,15 +19,49 @@ run().then(() => {
 
 function runExpressServer () {
   const app = express()
-  const port = 3000
+  const port = 7200
   
   app.use(bodyParser.urlencoded({
     extended: true
   }));
 
+  app.use(bodyParser.json());
+
+  app.use(cors());
 
   app.get('/', (req, res) => {
     res.send('Hello World!')
+  })
+
+  app.get('/donuts', (req, res) => {
+    console.log("Requested Donuts!")
+    getAvailableDonuts().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/donutsEmployee', (req, res) => {
+    getAllDonuts().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/drones', (req, res) => {
+    getAllDrones().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/availableDrones', (req, res) => {
+    getAvailableDrones().then((result) => {
+      res.send(result)
+    })
+  })
+
+  app.get('/allOrders', (req, res) => {
+    getAllOrders().then((result) => {
+      res.send(result)
+    })
   })
 
   app.listen(port, () => {
@@ -42,28 +78,20 @@ function runExpressServer () {
     })
   })
 
-  app.post('/showOrder', (req, res) => {
+  app.post('/makeOrder', (req, res) => {
     const customerID: ObjectId = req.body.customerID
     const donuts = req.body.donuts
-    const formattedDonuts = donuts.map((str) => str.split(","))
-    newOrder(customerID, formattedDonuts).then((createdOrder) => {
+    const paymentMethod: PaymentMethod = req.body.paymentMethod
+    newOrder(customerID, donuts, paymentMethod).then((createdOrder) => {
       res.status(200).send(createdOrder.toJSON())
     })
   })
-  app.post('/makePayment', (req, res) => {
-    const orderID: Types.ObjectId = req.body.orderID
-    const paymentMethod: PaymentMethod = req.body.paymentMethod
 
-    makePayment(orderID, paymentMethod).then((paidOrder) => {
-      res.status(200).send(paidOrder.toJSON())
-    })
-  })
-
-  app.get('/getOrder', (req, res) => {
+  app.post('/getOrder', (req, res) => {
     const orderID: Types.ObjectId = req.body.orderID
 
-    getOrder(orderID).then((result) => {
-      res.send(result)
+    getOrder(orderID).then((order) => {
+      res.status(200).send(order)
     })
   })
 

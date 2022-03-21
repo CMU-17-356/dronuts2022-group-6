@@ -4,7 +4,7 @@ import { OrderItemModel } from '../schema/orderItemsSchema'
 
 interface OrderItem {
   orderID: ObjectId
-  donutID: ObjectId
+  donutID: {'type': ObjectId, 'ref': 'Donut'}
   quantity: number
   subtotal: number
   subtotalWeight: number
@@ -13,6 +13,7 @@ interface OrderItem {
 async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: any): Promise<any> {
   let orderItemIDs = []
   let grandTotal = 0
+
 
   for (const [donutID, quantity] of thisOrderItems) {
     await makeOrderItem(thisOrderID, donutID, quantity).then((orderItem) => {
@@ -23,6 +24,7 @@ async function makeOrderItems(thisOrderID: Types.ObjectId, thisOrderItems: any):
     })
   }
 
+  
   return new Promise((resolve, reject) => {
     try{
       resolve([orderItemIDs, grandTotal])
@@ -47,6 +49,7 @@ async function makeOrderItem(thisOrderID: any, thisDonutID: any, thisQuantity: n
       const orderItem = new OrderItemModel({
         orderID: thisOrderID,
         donutID: thisDonutID,
+        name: thisDonut.name,
         quantity: thisQuantity,
         subtotal: thisDonut.price * thisQuantity,
         subtotalWeight: thisDonut.weight * thisQuantity
@@ -54,12 +57,15 @@ async function makeOrderItem(thisOrderID: any, thisDonutID: any, thisQuantity: n
       orderItem.save()
       resolve(orderItem)
     } catch {
-      console.log('order items not being made')
       reject('order items bad')
     }
 
   })
 }
 
+async function findOrderItem(orderItemID: any){
+  return await OrderItemModel.findById(orderItemID)
+}
 
-export { OrderItem, makeOrderItems, makeOrderItem }
+
+export { OrderItem, makeOrderItems, makeOrderItem, findOrderItem}
