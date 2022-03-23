@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Grid, Page, Spacer, Card, Progress, Image, Text, Button}
+import {Divider, Grid, Page, Spacer, Card, Progress, Text, Button}
   from '@geist-ui/react';
-import map from '../../assets/map.png';
 import {useNavigate} from 'react-router';
+import DroneMap from '../common/drone-map';
+import './confirmation.css'
 
 function ConfirmationComponent() {
   const navigate = useNavigate();
 
   const [orderID, setOrderID] = useState('');
   const [order, setOrder]= useState(() : any => {});
+
+  const droneLocation = {
+    lat: 40.498132,
+    lng: -80.109799,
+  }
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -22,7 +28,7 @@ function ConfirmationComponent() {
           'Accept': 'application/json'},
         body: JSON.stringify({'orderID': id}),
       };
-      fetch('http://localhost:7200/getOrder', requestOptions)
+      fetch('http://localhost:8080/getOrder', requestOptions)
           .then((response) => response.json())
           .then((data: any) => {
             console.log(data);
@@ -44,7 +50,7 @@ function ConfirmationComponent() {
         'Accept': 'application/json'},
       body: JSON.stringify({'orderID': orderID}),
     };
-    fetch('http://localhost:7200/cancelOrder', requestOptions)
+    fetch('http://localhost:8080/cancelOrder', requestOptions)
         .then((response) => response.json())
         .then((data: any) => {
           console.log(data);
@@ -74,7 +80,7 @@ function ConfirmationComponent() {
                   <Spacer h={1}/>
                   <Grid.Container gap={2}>
                     <Grid xs={24} md={12}>
-                      <Image src={map} height="400px" width="800px" />
+                      <DroneMap className='map' location={droneLocation} zoomLevel={17} />
                     </Grid>
                     <Grid xs={12} md={12}>
                       <address>

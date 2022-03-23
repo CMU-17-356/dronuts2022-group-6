@@ -10,7 +10,7 @@ function ExploreComponent() {
   });
 
   useEffect( () => {
-    fetch('http://localhost:7200/donuts')
+    fetch('http://localhost:8080/donuts')
         .then((response) => response.json())
         .then((data: any) => {
           setDonuts(data);

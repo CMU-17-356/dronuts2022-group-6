@@ -20,7 +20,7 @@ run().then(() => {
 
 function runExpressServer () {
   const app = express()
-  const port = 7200
+  const port = 8080
   
   app.use(bodyParser.urlencoded({
     extended: true
