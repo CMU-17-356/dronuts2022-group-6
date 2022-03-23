@@ -5,8 +5,7 @@ import { CustomerModel } from '../schema/customerSchema'
 import { PaymentMethod } from '../schema/orderSchema'
 import { changeDonutQuantity, getAllDonuts, getAvailableDonuts} from './donut'
 import { run } from './mongoosedb'
-import { cancelOrder, matchOrderToDrone, newOrder, getOrder,
-    getAllOrders, } from './order'
+import { cancelOrder, matchOrderToDrone, newOrder, getOrder, getAllOrders, } from './order'
 import { getAllDrones, getAvailableDrones } from './drone'
 const cors = require('cors');
 
