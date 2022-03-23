@@ -18,7 +18,7 @@ function InventoryDonutCardComponent(data: any) {
     console.log(donut.data._id);
     fetch('http://localhost:8080/changeDonutQuantity', requestOptions)
         .then((response) => response.json())
-        .then((data: any) => {
+        .then(() => {
           // eslint-disable-next-line camelcase
           setAmount(amount + 1);
         });
@@ -34,7 +34,7 @@ function InventoryDonutCardComponent(data: any) {
     };
     fetch('http://localhost:8080/changeDonutQuantity', requestOptions)
         .then((response) => response.json())
-        .then((data: any) => {
+        .then(() => {
           // eslint-disable-next-line camelcase
           setAmount(amount - 1);
         });
