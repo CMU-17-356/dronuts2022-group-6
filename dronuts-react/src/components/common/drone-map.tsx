@@ -15,8 +15,6 @@ function LocationPin ({ text }: any) {
 
 function DroneMap ({ location, zoomLevel }: any) {
   return (<div className="map">
-    <h2 className="map-h2">Your Order is on the Way!</h2>
-
     <div className="google-map">
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyChaC6GVh5_ArnXiu8IBFoOHtqln74jCpA' }}

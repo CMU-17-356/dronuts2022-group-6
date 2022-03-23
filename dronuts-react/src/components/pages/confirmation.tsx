@@ -11,11 +11,6 @@ function ConfirmationComponent() {
   const [orderID, setOrderID] = useState('');
   const [order, setOrder]= useState(() : any => {});
 
-  const droneLocation = {
-    lat: 40.498132,
-    lng: -80.109799,
-  }
-
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const id = queryParams.get('orderid');
@@ -80,7 +75,10 @@ function ConfirmationComponent() {
                   <Spacer h={1}/>
                   <Grid.Container gap={2}>
                     <Grid xs={24} md={12}>
-                      <DroneMap className='map' location={droneLocation} zoomLevel={17} />
+                      <DroneMap className='map' location={{
+                          lat: order.droneLat,
+                          lng: order.droneLong,
+                        }} zoomLevel={17} />
                     </Grid>
                     <Grid xs={12} md={12}>
                       <address>
@@ -91,6 +89,7 @@ function ConfirmationComponent() {
                       </address>
                     </Grid>
                   </Grid.Container>
+                  <Spacer h={1}/>
                   <Button onClick={cancelOrder}>Cancel Order</Button>
                 </div>
               </Card>
