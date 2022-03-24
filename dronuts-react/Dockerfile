@@ -1,4 +1,4 @@
-FROM gcr.io/google-appengine/nodejs
+FROM node:alpine
 WORKDIR /app
 COPY package.json ./
 COPY package-lock.json ./

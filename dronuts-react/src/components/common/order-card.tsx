@@ -9,7 +9,7 @@ function OrderCardComponent(data: any) {
   const orderItems = order ? order.orderItems : [];
 
   useEffect( () => {
-    fetch('http://localhost:8080/availableDrones')
+    fetch('/availableDrones')
         .then((response) => response.json())
         .then((data: any) => {
           setDrones(data);
@@ -32,7 +32,7 @@ function OrderCardComponent(data: any) {
         'Accept': 'application/json'},
       body: JSON.stringify({'orderID': order._id, 'droneID': droneID}),
     };
-    await fetch('http://localhost:8080/matchOrderToDrone', requestOptions)
+    await fetch('/matchOrderToDrone', requestOptions)
         .then((response) => response.json())
         .then((data: any) => {
           setStatus(data.status);

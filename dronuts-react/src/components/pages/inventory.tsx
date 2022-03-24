@@ -9,10 +9,9 @@ function InventoryComponent() {
   });
 
   useEffect( () => {
-    fetch('http://localhost:8080/donutsEmployee')
+    fetch('/donutsEmployee')
         .then((response) => response.json())
         .then((data: any) => {
-          console.log(data);
           setDonuts(data);
         });
   }, []);

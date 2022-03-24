@@ -15,8 +15,7 @@ function InventoryDonutCardComponent(data: any) {
       body: JSON.stringify({'donutID': donut.data._id,
         'numChange': 1, 'add': true}),
     };
-    console.log(donut.data._id);
-    fetch('http://localhost:8080/changeDonutQuantity', requestOptions)
+    fetch('/changeDonutQuantity', requestOptions)
         .then((response) => response.json())
         .then(() => {
           // eslint-disable-next-line camelcase
@@ -32,7 +31,7 @@ function InventoryDonutCardComponent(data: any) {
       body: JSON.stringify({'donutID': donut.data._id,
         'numChange': 1, 'add': false}),
     };
-    fetch('http://localhost:8080/changeDonutQuantity', requestOptions)
+    fetch('/changeDonutQuantity', requestOptions)
         .then((response) => response.json())
         .then(() => {
           // eslint-disable-next-line camelcase

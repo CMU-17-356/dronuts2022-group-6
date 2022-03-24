@@ -9,7 +9,8 @@ import { DroneStatus } from './drone'
 
 async function run (): Promise<void> {
   // Connect to MongoDB
-  const db = await connect('mongodb://localhost:27017/dronuts')
+  const uri = 'mongodb+srv://username:password@cluster0.sgdet.mongodb.net/dronuts?retryWrites=true&w=majority'
+  const db = await connect(uri)
 
   await CustomerModel.deleteMany({})
   await DonutModel.deleteMany({})

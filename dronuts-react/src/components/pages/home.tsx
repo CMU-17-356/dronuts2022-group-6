@@ -1,6 +1,5 @@
-import {Divider, Grid, Page, Spacer, Text} from '@geist-ui/react';
+import {Page, Spacer, Text} from '@geist-ui/react';
 import React from 'react';
-import DonutCardComponent from '../common/donut-card';
 // import NavComponent from '../common/nav';
 import landingLogo from '../../assets/DronutsLogo.png';
 import './home.css';
@@ -27,24 +26,7 @@ function HomeComponent() {
                 I have ever had for getting food" - User
             </Text>
             <Spacer h={3}/>
-            <Divider />
-            <Spacer h={3}/>
 
-            <h2>Today's Donut</h2>
-            <Spacer h={3}/>
-            <Grid.Container gap={2}>
-              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
-            </Grid.Container>
-            <Spacer h={5}/>
-
-
-            <h2>Top Picks</h2>
-            <Spacer h={3}/>
-            <Grid.Container gap={2}>
-              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
-              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
-              <Grid sm={10}><DonutCardComponent data={null}/></Grid>
-            </Grid.Container>
           </Page.Content>
         </Page>
 
