@@ -21,9 +21,6 @@ function NavComponent() {
         <div>
           <a href='/explore'><Button>Explore</Button></a>
         </div>
-        <div>
-          <a href='/about'><Button>About</Button></a>
-        </div>
       </div>
       <div className='right-content'>
         <div>

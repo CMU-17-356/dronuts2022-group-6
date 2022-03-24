@@ -6,20 +6,25 @@
     "@geist-ui/icons": "^1.0.1",
     "@geist-ui/react": "^2.2.5",
     "@geist-ui/react-icons": "^1.0.1",
+    "@googlemaps/react-wrapper": "^1.1.28",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/googlemaps": "^3.43.3",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.24",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
     "eslint-plugin-jest": "^26.1.0",
+    "google-map-react": "^2.1.10",
     "jest-watch-typeahead": "^0.6.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "typescript-eslint": "0.0.1-alpha.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,9 +65,11 @@
     ]
   },
   "devDependencies": {
+    "@types/google-map-react": "^2.1.5",
     "eslint": "^8.9.0",
     "eslint-config-google": "^0.14.0",
     "jest-environment-jsdom": "^27.5.1",
     "web-vitals": "^2.1.4"
-  }
+  },
+  "proxy": "https://dronutsbackend.ue.r.appspot.com"
 }

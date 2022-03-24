@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Divider, Grid, Page, Spacer, Card, Progress, Image, Text, Button}
+import {Divider, Grid, Page, Spacer, Card, Progress, Text, Button}
   from '@geist-ui/react';
-import map from '../../assets/map.png';
 import {useNavigate} from 'react-router';
+import DroneMap from '../common/drone-map';
+import './confirmation.css';
 
 function ConfirmationComponent() {
   const navigate = useNavigate();
@@ -13,7 +14,6 @@ function ConfirmationComponent() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const id = queryParams.get('orderid');
-    console.log(id);
     if (id) {
       setOrderID(id);
       const requestOptions = {
@@ -22,10 +22,9 @@ function ConfirmationComponent() {
           'Accept': 'application/json'},
         body: JSON.stringify({'orderID': id}),
       };
-      fetch('http://localhost:7200/getOrder', requestOptions)
+      fetch('/getOrder', requestOptions)
           .then((response) => response.json())
           .then((data: any) => {
-            console.log(data);
             setOrder(data);
           });
     }
@@ -44,10 +43,9 @@ function ConfirmationComponent() {
         'Accept': 'application/json'},
       body: JSON.stringify({'orderID': orderID}),
     };
-    fetch('http://localhost:7200/cancelOrder', requestOptions)
+    fetch('/cancelOrder', requestOptions)
         .then((response) => response.json())
         .then((data: any) => {
-          console.log(data);
           setOrder(data);
           navigate({pathname: '/'});
         });
@@ -66,27 +64,33 @@ function ConfirmationComponent() {
                 <Divider/>
                 <h4>Thank you for your purchase!</h4>
                 <h5>Total: ${order.grandTotal}</h5>
-                <div className = "progress">
-                  <Progress value={75} />
-                  <Text>Time of Purchase:
-                    {formatDate(order.timeOfPurchase)}</Text>
-                  <Text>Estimated delivery time: 30 minutes</Text>
-                  <Spacer h={1}/>
-                  <Grid.Container gap={2}>
-                    <Grid xs={24} md={12}>
-                      <Image src={map} height="400px" width="800px" />
-                    </Grid>
-                    <Grid xs={12} md={12}>
-                      <address>
-                            Delivery Address:<br/>
-                            5000 Forbes Ave<br/>
-                            Carnegie Mellon University,<br/>
-                            Pittsburgh, PA 15213<br/>
-                      </address>
-                    </Grid>
-                  </Grid.Container>
-                  <Button onClick={cancelOrder}>Cancel Order</Button>
-                </div>
+                { order.status != 'incomplete' &&
+                  <div className = "progress">
+                    <Progress value={75} />
+                    <Text>Time of Purchase:
+                      {formatDate(order.timeOfPurchase)}</Text>
+                    <Text>Estimated delivery time: 30 minutes</Text>
+                    <Spacer h={1}/>
+                    <Grid.Container gap={2}>
+                      <Grid xs={24} md={12}>
+                        <DroneMap className='map' location={{
+                          lat: order.droneLat,
+                          lng: order.droneLong,
+                        }} zoomLevel={17} />
+                      </Grid>
+                      <Grid xs={12} md={12}>
+                        <address>
+                              Delivery Address:<br/>
+                              5000 Forbes Ave<br/>
+                              Carnegie Mellon University,<br/>
+                              Pittsburgh, PA 15213<br/>
+                        </address>
+                      </Grid>
+                    </Grid.Container>
+                    <Spacer h={1}/>
+                    <Button onClick={cancelOrder}>Cancel Order</Button>
+                  </div>
+                }
               </Card>
             </Page.Content>
           </Page>

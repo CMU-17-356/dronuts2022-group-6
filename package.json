@@ -1,0 +1,38 @@
+{
+  "name": "dronuts2022-group-6",
+  "version": "1.0.0",
+  "description": "Dronuts development - 17356 - Team 6",
+  "scripts": {
+    "client": "cd dronuts-react && npm start",
+    "server": "cd app && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CMU-17-356/dronuts2022-group-6.git"
+  },
+  "author": "Team6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CMU-17-356/dronuts2022-group-6/issues"
+  },
+  "homepage": "https://github.com/CMU-17-356/dronuts2022-group-6#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "typescript-eslint": "0.0.1-alpha.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.11.0",
+    "eslint-config-google": "^0.14.0",
+    "typescript": "^4.6.2"
+  }
+}

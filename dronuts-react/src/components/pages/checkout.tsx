@@ -26,7 +26,7 @@ function CheckoutComponent() {
         'Accept': 'application/json'},
       body: JSON.stringify(orderDetails),
     };
-    await fetch('http://localhost:7200/makeOrder', requestOptions)
+    await fetch('/makeOrder', requestOptions)
         .then((response) => response.json())
         .then((data: any) => {
           localStorage.clear();

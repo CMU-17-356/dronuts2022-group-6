@@ -1,17 +1,42 @@
-import {Card, Text, Divider, Badge} from '@geist-ui/react';
+import {Minus, Plus} from '@geist-ui/icons';
+import {Card, Text, Divider, Badge, Button} from '@geist-ui/react';
+import {useState} from 'react';
 import './inventory-donut-card.css';
 
 function InventoryDonutCardComponent(data: any) {
-  let donut = data;
+  const [donut] = useState(data);
+  const [amount, setAmount] = useState(donut.data.quantity_left);
 
-  const tempDonut = {data:
-    {'name': 'Glazed', 'description':
-    'Nice gooey donut', 'price': 3.00, 'id': '#54093',
-    'quantity_left': 4, 'weight': '5'},
-  };
+  function addQuantity() {
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+        'Accept': 'application/json'},
+      body: JSON.stringify({'donutID': donut.data._id,
+        'numChange': 1, 'add': true}),
+    };
+    fetch('/changeDonutQuantity', requestOptions)
+        .then((response) => response.json())
+        .then(() => {
+          // eslint-disable-next-line camelcase
+          setAmount(amount + 1);
+        });
+  }
 
-  if (donut.data == null) {
-    donut = tempDonut;
+  function subQuantity() {
+    const requestOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',
+        'Accept': 'application/json'},
+      body: JSON.stringify({'donutID': donut.data._id,
+        'numChange': 1, 'add': false}),
+    };
+    fetch('/changeDonutQuantity', requestOptions)
+        .then((response) => response.json())
+        .then(() => {
+          // eslint-disable-next-line camelcase
+          setAmount(amount - 1);
+        });
   }
 
   return (
@@ -26,7 +51,11 @@ function InventoryDonutCardComponent(data: any) {
       <Badge style={ {backgroundColor: '#ef72ac'} }>${donut.data.price}</Badge>
       <div>
         <span>
-          <p><b>Donuts Left: &nbsp; </b>{donut.data.quantity_left}</p>
+          <p><b>Donuts Left: &nbsp; </b>{amount}</p>
+          <Button iconRight={<Plus />} auto
+            scale={2/3} px={0.6} onClick={addQuantity}></Button>
+          <Button iconRight={<Minus />} auto
+            scale={2/3} px={0.6} onClick={subQuantity}></Button>
           <p><b>Weight: &nbsp; </b>{donut.data.weight} lbs</p>
         </span>
       </div>
