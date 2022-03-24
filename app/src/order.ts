@@ -41,15 +41,18 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any], payment
         orderItems = orderItemsAndTotal[0] as unknown as [Schema.Types.ObjectId]
         grandTotal = orderItemsAndTotal[1]
     })
-
-    let thisDonut = DonutModel.findById(orderItems.donutID);
-    if (thisDonut.quantity_left - orderItems.quantity < 0) {
-        throw new Error("Not Enough Quantity Left")
+    for (let orderI of orderItems) {
+        let orderItem = await OrderItemModel.findById(orderI);
+        let thisDonut = await DonutModel.findById(orderItem.donutID);
+        if (thisDonut.quantity_left - orderItem.quantity < 0) {
+            throw new Error("Not Enough Quantity Left")
+        }
+        else [
+            thisDonut.quantity_left -= orderItem.quantity
+        ]
+        await thisDonut.save()
     }
-    else [
-        thisDonut.quantity_left -= orderItems.quantity
-    ]
-    thisDonut.save()
+    
 
     return new Promise((resolve, reject) => {
         try {
