@@ -42,6 +42,15 @@ async function newOrder(thisCustomerID: ObjectId, thisOrderItems: [any], payment
         grandTotal = orderItemsAndTotal[1]
     })
 
+    let thisDonut = DonutModel.findById(orderItems.donutID);
+    if (thisDonut.quantity_left - orderItems.quantity < 0) {
+        throw new Error("Not Enough Quantity Left")
+    }
+    else [
+        thisDonut.quantity_left -= orderItems.quantity
+    ]
+    thisDonut.save()
+
     return new Promise((resolve, reject) => {
         try {
             order.grandTotal = grandTotal
